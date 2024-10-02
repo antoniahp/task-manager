@@ -11,3 +11,4 @@ class StatusColumn(models.Model):
     company = models.ForeignKey(Company, related_name='status_column', on_delete=models.PROTECT)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

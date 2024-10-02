@@ -27,8 +27,8 @@ class SprintAdmin(admin.ModelAdmin):
 class TaskAdmin(admin.ModelAdmin):
     list_display = [
         "title",
-        "punctuation",
-        "task_type",
+        "estimation",
+        "category",
         "completed",
     ]
 
