@@ -32,6 +32,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(",")
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "task_manager",
 ]
 
 MIDDLEWARE = [
@@ -132,4 +134,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+AUTH_USER_MODEL = "task_manager.User"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
