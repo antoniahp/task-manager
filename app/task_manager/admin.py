@@ -45,7 +45,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 class UserAdmin(admin.ModelAdmin):
     list_display = [
-        "name",
+        "username",
     ]
 
 
