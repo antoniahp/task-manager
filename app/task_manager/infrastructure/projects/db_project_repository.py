@@ -12,8 +12,8 @@ from task_manager.domain.project.project_repository import ProjectRepository
 
 class DbProjectRepository(ProjectRepository):
 
-    def filtered_project_by_id(self, project_id: Optional[UUID]) -> Project:
-        project = Project.objects.get(id=project_id)
+    def filtered_project_by_id(self, project_id: Optional[UUID]) -> Optional[Project]:
+        project = Project.objects.filter(id=project_id).first()
         return project
 
     def filtered_projects(self, project_id: Optional[UUID], name: Optional[str] = None, start_date__gte:Optional[date]= None, end_date__lte:Optional[date]= None) -> List[Project]:

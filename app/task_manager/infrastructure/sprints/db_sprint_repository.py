@@ -9,8 +9,8 @@ from task_manager.domain.sprint.sprint_repository import SprintRepository
 
 
 class DbSprintRepository(SprintRepository):
-    def filter_sprint_by_id (self, sprint_id: UUID) -> Sprint:
-        sprint = Sprint.objects.get(id=sprint_id)
+    def filter_sprint_by_id (self, sprint_id: UUID) -> Optional[Sprint]:
+        sprint = Sprint.objects.filter(id=sprint_id).first()
         return sprint
 
     def filter_sprint(self, sprint_id: Optional[UUID] = None, name: Optional[str] = None,
