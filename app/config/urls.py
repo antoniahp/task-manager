@@ -15,9 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+
+from ninja import NinjaAPI
+
+from task_manager.infrastructure.projects.project_views import project_router
+from task_manager.infrastructure.task.task_views import task_router
+from task_manager.infrastructure.sprints.sprints_views import sprint_router
+
+api = NinjaAPI()
+
+api.add_router("/tasks/", task_router)
+api.add_router("/sprints/", sprint_router)
+api.add_router("/projects/", project_router)
+
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("task_manager/", include("task_manager.urls")),
+    path("api/", api.urls),
 ]
