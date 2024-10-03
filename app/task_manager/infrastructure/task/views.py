@@ -63,21 +63,4 @@ def get_task(request, task_id: Optional[UUID] = None, title: Optional[str] = Non
 
     query_response = get_task_query_handler.handle(query)
     tasks = query_response.content
-    # Serialize the response correctly
-    serialized_tasks = [
-        {
-            "task_id": str(task.id),
-            "title": task.title,
-            "description": task.description,
-            "estimation": task.estimation,
-            "completed": task.completed,
-            "category": task.category,
-            "parent_task": str(task.parent_task) if task.parent_task else None,
-            "sprint": str(task.sprint.id) if task.sprint else None,
-            "project": str(task.project.id) if task.project else None,
-            "user": str(task.user.id) if task.user else None,
-        }
-        for task in tasks
-    ]
-
-    return serialized_tasks
+    return tasks

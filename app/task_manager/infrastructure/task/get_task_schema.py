@@ -5,13 +5,13 @@ from ninja import Schema
 
 
 class GetTaskSchema(Schema):
-    task_id: UUID
+    id: UUID
     title: str
     description: str
     estimation: int
     completed: bool
     category: str
-    parent_task: Optional[UUID]
-    sprint: Optional[UUID]
-    project: Optional[UUID]
-    user: Optional[UUID]
+    parent_task_id: Optional[UUID]
+    sprint_id: Optional[UUID]
+    project_id: Optional[UUID]
+    user_id: Optional[UUID]
