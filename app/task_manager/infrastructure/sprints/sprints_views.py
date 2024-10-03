@@ -79,4 +79,3 @@ def update_sprint(request, sprint_id: UUID, update_schema: UpdateSprintSchema):
     )
     update_sprint_command_handler.handle(command)
     return {"success": True}
-
