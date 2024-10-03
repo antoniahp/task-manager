@@ -45,3 +45,13 @@ def get_projects(request, name: Optional[str] = None, start_date__gte: Optional[
     query_response = get_project_query_handler.handle(query)
     projects = query_response.content
     return projects
+
+@project_router.get("/project/{project_id}", response=GetProjectSchema)
+def get_project_by_id(request, project_id: UUID):
+    query = GetProjectQuery(
+        project_id=project_id,
+    )
+
+    query_response = get_project_query_handler.handle(query)
+    projects = query_response.content
+    return projects[0]

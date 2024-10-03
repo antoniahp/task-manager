@@ -8,12 +8,15 @@ from task_manager.domain.task.task_repository import TaskRepository
 
 
 class DbTaskRepository(TaskRepository):
+    def filter_task_by_id(self, task_id: UUID) -> Optional[Task]:
+        task = Task.objects.get(id=task_id)
+        return task
 
     def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None,
                     category:Optional[str] = None, sprint: Optional[UUID] = None, user: Optional[UUID] = None ) -> List[Task]:
         filters = Q()
         if task_id is not None:
-            filters = filters & Q(task_id=task_id)
+            filters = filters & Q(id=task_id)
         if title is not None:
             filters = filters & Q(title=title)
         if estimation is not None:

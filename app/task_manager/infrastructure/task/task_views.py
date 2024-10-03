@@ -43,13 +43,12 @@ def post_task(request, create_task_schema: CreateTaskSchema):
 
 
 @task_router.get("/task", response=List[GetTaskSchema])
-def get_task(request, task_id: Optional[UUID] = None, title: Optional[str] = None,
+def get_task(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None, category: Optional[str] = None,
              parent_task: Optional[UUID] = None, sprint: Optional[UUID] = None,
              project: Optional[UUID] = None, user: Optional[UUID] = None):
     query = GetTaskQuery(
-        task_id=task_id,
         title=title,
         description=description,
         estimation=estimation,
@@ -64,3 +63,14 @@ def get_task(request, task_id: Optional[UUID] = None, title: Optional[str] = Non
     query_response = get_task_query_handler.handle(query)
     tasks = query_response.content
     return tasks
+
+@task_router.get("/task/{task_id}", response=GetTaskSchema)
+def get_task_by_id(request, task_id: UUID ):
+    query = GetTaskQuery(
+        task_id=task_id,
+    )
+
+    query_response = get_task_query_handler.handle(query)
+    task = query_response.content
+    return task[0]
+

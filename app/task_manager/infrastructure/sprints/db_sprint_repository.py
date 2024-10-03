@@ -17,7 +17,7 @@ class DbSprintRepository(SprintRepository):
              start_date: Optional[date] = None, end_date: Optional[date] = None, objective: Optional[str] = None, active: Optional[bool] = None) -> List[Sprint]:
         filters = Q()
         if sprint_id is not None:
-            filters = filters & Q(sprint_id=sprint_id)
+            filters = filters & Q(id=sprint_id)
         if name is not None:
             filters = filters & Q(name=name)
         if start_date is not None:

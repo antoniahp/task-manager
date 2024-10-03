@@ -9,5 +9,5 @@ class GetProjectQueryHandler(QueryHandler):
         self.__project_repository = project_repository
 
     def handle(self, query: GetProjectQuery) -> QueryResponse:
-        projects = self.__project_repository.filtered_projects(name=query.name, start_date__gte=query.start_date__gte, end_date__lte=query.end_date__lte)
+        projects = self.__project_repository.filtered_projects(project_id=query.project_id, name=query.name, start_date__gte=query.start_date__gte, end_date__lte=query.end_date__lte)
         return QueryResponse(content=projects)

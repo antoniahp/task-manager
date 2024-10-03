@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
+from typing import Optional
 from uuid import UUID
 
 from cqrs.queries.query import Query
@@ -7,9 +8,9 @@ from cqrs.queries.query import Query
 
 @dataclass(frozen=True)
 class GetSprintQuery(Query):
-    sprint_id: UUID
-    name: str
-    objective: str
-    start_date: date
-    end_date: date
-    active: bool
+    sprint_id: Optional[UUID] = None
+    name: Optional[str] = None
+    objective: Optional[str] = None
+    start_date:Optional[date] = None
+    end_date: Optional[date] = None
+    active:Optional[bool] = None

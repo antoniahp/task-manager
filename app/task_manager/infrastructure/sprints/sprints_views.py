@@ -56,7 +56,15 @@ def get_sprints(request, sprint_id: Optional[UUID] = None, name: Optional[str] =
     sprints = query_response.content
     return sprints
 
+@sprint_router.get("/sprint/{sprint_id}", response=GetSprintsSchema)
+def get_sprints_by_id(request, sprint_id: UUID ):
+    query = GetSprintQuery(
+        sprint_id=sprint_id,
+    )
 
+    query_response = get_sprint_query_handler.handle(query)
+    sprint = query_response.content
+    return sprint[0]
 
 
 @sprint_router.put("/sprint/{sprint_id}")
@@ -71,3 +79,4 @@ def update_sprint(request, sprint_id: UUID, update_schema: UpdateSprintSchema):
     )
     update_sprint_command_handler.handle(command)
     return {"success": True}
+

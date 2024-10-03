@@ -7,12 +7,12 @@ from cqrs.queries.query import Query
 
 @dataclass(frozen=True)
 class GetTaskQuery(Query):
-    task_id: UUID
-    title: str
-    description: str
-    estimation: int
-    completed: bool
-    category: str
+    task_id: Optional[UUID] = None
+    title: Optional[str]= None
+    description: Optional[str]= None
+    estimation: Optional[int]= None
+    completed: Optional[bool]= None
+    category: Optional[str]= None
     parent_task: Optional[UUID] = None
     sprint: Optional[UUID] = None
     project: Optional[UUID] = None
