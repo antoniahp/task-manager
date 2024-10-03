@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from ninja import NinjaAPI
-from task_manager.infrastructure.task.views import task_router
+from task_manager.infrastructure.task.task_views import task_router
 from task_manager.infrastructure.sprints.sprints_views import sprint_router
 
 api = NinjaAPI()
