@@ -5,7 +5,7 @@ from uuid import UUID
 from cqrs.queries.query import Query
 
 
-@dataclass
+@dataclass(frozen=True)
 class GetTaskQuery(Query):
     task_id: UUID
     title: str

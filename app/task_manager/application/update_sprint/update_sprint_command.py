@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
-from cqrs.queries.query import Query
+from cqrs.commands.command import Command
 
 
 @dataclass(frozen=True)
-class GetSprintQuery(Query):
+class UpdateSprintCommand(Command):
     sprint_id: UUID
     name: str
     objective: str
