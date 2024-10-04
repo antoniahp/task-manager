@@ -18,3 +18,4 @@ class UpdateTaskCommand(Command):
     sprint_id: Optional[UUID] = None
     project_id: Optional[UUID] = None
     user_id: Optional[UUID] = None
+    status_column_id: Optional[UUID] = None

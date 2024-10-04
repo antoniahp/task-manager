@@ -10,7 +10,7 @@ class TaskRepository(ABC):
     def filter_task_by_id(self, task_id: UUID) -> Optional[Task]:
         pass
     @abstractmethod
-    def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None, category:Optional[str] = None, parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None ) -> List[Task]:
+    def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None, category:Optional[str] = None, parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None ) -> List[Task]:
         pass
 
     @abstractmethod

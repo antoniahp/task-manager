@@ -9,5 +9,5 @@ class GetTaskQueryHandler(QueryHandler):
         self._task_repository = task_repository
 
     def handle(self, query: GetTaskQuery) -> QueryResponse:
-        tasks = self._task_repository.filter_task(task_id=query.task_id, title=query.title, estimation=query.estimation, completed=query.completed, category=query.category, sprint=query.sprint, user=query.user)
+        tasks = self._task_repository.filter_task(task_id=query.task_id, title=query.title, estimation=query.estimation, completed=query.completed, category=query.category, sprint_id=query.sprint, user_id=query.user, status_column_id=query.status_column_id, parent_task_id=query.parent_task)
         return QueryResponse(content=tasks)

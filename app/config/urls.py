@@ -20,6 +20,7 @@ from django.urls import path
 from ninja import NinjaAPI
 
 from task_manager.infrastructure.projects.project_views import project_router
+from task_manager.infrastructure.status_columns.status_columns_views import status_columns_router
 from task_manager.infrastructure.task.task_views import task_router
 from task_manager.infrastructure.sprints.sprints_views import sprint_router
 
@@ -28,6 +29,7 @@ api = NinjaAPI()
 api.add_router("/tasks/", task_router)
 api.add_router("/sprints/", sprint_router)
 api.add_router("/projects/", project_router)
+api.add_router("/status_columns_router/", status_columns_router)
 
 
 

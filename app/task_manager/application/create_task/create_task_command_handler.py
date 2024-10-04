@@ -20,6 +20,7 @@ class CreateTaskCommandHandler(CommandHandler):
             parent_task_id=command.parent_task,
             sprint_id=command.sprint,
             project_id=command.project,
-            user_id=command.user
+            user_id=command.user,
+            status_column_id=command.status_column_id
         )
         self.__task_repository.save_task(task)

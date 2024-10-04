@@ -38,7 +38,8 @@ def post_task(request, create_task_schema: CreateTaskSchema):
         parent_task=create_task_schema.parent_task,
         sprint=create_task_schema.sprint,
         project=create_task_schema.project,
-        user=create_task_schema.user
+        user=create_task_schema.user,
+        status_column_id=create_task_schema.status_column_id
     )
     create_task_command_handler.handle(command)
     return IdentifierSchema(id=id)
@@ -50,7 +51,7 @@ def get_task(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None, category: Optional[str] = None,
              parent_task: Optional[UUID] = None, sprint: Optional[UUID] = None,
-             project: Optional[UUID] = None, user: Optional[UUID] = None):
+             project: Optional[UUID] = None, user: Optional[UUID] = None, status_column: Optional[UUID] = None):
     query = GetTaskQuery(
         title=title,
         description=description,
@@ -61,6 +62,7 @@ def get_task(request, title: Optional[str] = None,
         sprint=sprint,
         project=project,
         user=user,
+        status_column=status_column
     )
 
     query_response = get_task_query_handler.handle(query)
@@ -90,6 +92,7 @@ def update_task(request, task_id: UUID, task_schema: UpdateTaskSchema):
         sprint_id=task_schema.sprint_id,
         project_id=task_schema.project_id,
         user_id=task_schema.user_id,
+        status_column_id=task_schema.status_column_id
     )
     update_task_command_handler.handle(command)
     return {"success": True}

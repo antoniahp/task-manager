@@ -12,3 +12,4 @@ class CreateTaskSchema(Schema):
     sprint: Optional[UUID]
     project: Optional[UUID]
     user: Optional[UUID]
+    status_column_id: Optional[UUID]

@@ -13,7 +13,7 @@ class DbTaskRepository(TaskRepository):
         return task
 
     def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None,
-                    category:Optional[str] = None, parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None  ) -> List[Task]:
+                    category:Optional[str] = None, parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None ) -> List[Task]:
         filters = Q()
         if task_id is not None:
             filters = filters & Q(id=task_id)
@@ -31,6 +31,8 @@ class DbTaskRepository(TaskRepository):
             filters = filters & Q(sprint_id=sprint_id)
         if user_id is not None:
             filters = filters & Q(user_id=user_id)
+        if status_column_id is not None:
+            filters = filters & Q(status_column_id=status_column_id)
 
         tasks = Task.objects.filter(filters)
         return tasks

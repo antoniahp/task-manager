@@ -15,3 +15,4 @@ class UpdateTaskSchema(Schema):
     sprint_id: Optional[UUID]
     project_id: Optional[UUID]
     user_id: Optional[UUID]
+    status_column_id: Optional[UUID]

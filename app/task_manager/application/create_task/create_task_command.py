@@ -17,3 +17,4 @@ class CreateTaskCommand(Command):
     sprint: Optional[UUID] = None
     project: Optional[UUID] = None
     user: Optional[UUID] = None
+    status_column_id: Optional[UUID] = None
