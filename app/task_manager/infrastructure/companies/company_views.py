@@ -28,15 +28,8 @@ def get_companies(request, company_id: Optional[UUID] = None, name: Optional[str
 
     query_response = get_company_query_handler.handle(query)
     companies = query_response.content
-    serialized_companies = [
-        {
-            'company_id': str(company.id),  # Convert company_id to a string/UUID
-            'name': company.name,
-        }
-        for company in companies
-    ]
 
-    return serialized_companies
+    return companies
 
 
 @company_router.get("/company/{company_id}", response=GetCompanySchema)
@@ -47,12 +40,7 @@ def get_sprints_by_id(request, company_id: UUID ):
 
     query_response = get_company_query_handler.handle(query)
     company = query_response.content
-    serialized_company = {
-        'company_id': str(company[0].id),  # Serialize company_id as UUID string
-        'name': company[0].name
-    }
-
-    return serialized_company
+    return company
 
 @company_router.post("/company", response=IdentifierSchema)
 def post_company(request, create_company_schema: CreateCompanySchema):

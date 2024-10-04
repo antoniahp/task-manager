@@ -43,12 +43,7 @@ def get_user_by_id(request, user_id: UUID ):
 
     query_response = get_user_query_handler.handle(query)
     user = query_response.content
-    serialized_user = {
-        'user_id': str(user[0].id),  # Serialize company_id as UUID string
-        'name': user[0].name
-    }
-
-    return serialized_user
+    return user
 
 @user_router.get("/users/", response=List[GetUserSchema])
 def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = None, company: Optional[str] = None):
@@ -60,14 +55,5 @@ def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = Non
 
     query_response = get_user_query_handler.handle(query)
     users = query_response.content
-    serialized_users = [
-        {
-            'user_id': str(user.id),  # Convert company_id to a string/UUID
-            'name': user.name,
-            'company': str(user.company.id),
-        }
-        for user in users
-    ]
-
-    return serialized_users
+    return users
 

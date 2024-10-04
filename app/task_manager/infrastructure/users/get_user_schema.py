@@ -4,6 +4,6 @@ from ninja import Schema
 
 
 class GetUserSchema(Schema):
-    user_id: UUID
+    id: UUID
     name: str
-    company: UUID
+    company_id: UUID

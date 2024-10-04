@@ -8,5 +8,5 @@ class StatusColumnCreator:
         return StatusColumn(
             id=status_column_id,
             name=name,
-            company=company_id
+            company_id=company_id
         )
