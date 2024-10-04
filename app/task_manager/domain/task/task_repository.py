@@ -1,4 +1,6 @@
 from abc import abstractmethod, ABC
+from datetime import datetime
+
 from typing import Optional, List
 from uuid import UUID
 
@@ -10,7 +12,9 @@ class TaskRepository(ABC):
     def filter_task_by_id(self, task_id: UUID) -> Optional[Task]:
         pass
     @abstractmethod
-    def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None, category:Optional[str] = None, sprint: Optional[UUID] = None, user: Optional[UUID] = None ) -> List[Task]:
+    def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None, category:Optional[str] = None,
+                    parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None, completed_at:Optional[datetime] = None,
+                    completed_at__gte:Optional[datetime] = None ,completed_at__lte:Optional[datetime] = None) -> List[Task]:
         pass
 
     @abstractmethod

@@ -1,11 +1,11 @@
+from datetime import date
 from typing import Optional
 from uuid import UUID
 
 from ninja import Schema
 
 
-class GetTaskSchema(Schema):
-    id: UUID
+class UpdateTaskSchema(Schema):
     title: str
     description: str
     estimation: int

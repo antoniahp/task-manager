@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional, List
 from uuid import UUID
 
@@ -13,7 +14,8 @@ class DbTaskRepository(TaskRepository):
         return task
 
     def filter_task(self, task_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None,
-                    category:Optional[str] = None, sprint: Optional[UUID] = None, user: Optional[UUID] = None ) -> List[Task]:
+                    category:Optional[str] = None, parent_task_id=Optional[UUID], sprint_id: Optional[UUID] = None, user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None,
+                    completed_at:Optional[datetime] = None, completed_at__gte:Optional[datetime] = None, completed_at__lte:Optional[datetime] = None)  -> List[Task]:
         filters = Q()
         if task_id is not None:
             filters = filters & Q(id=task_id)
@@ -25,10 +27,20 @@ class DbTaskRepository(TaskRepository):
             filters = filters & Q(completed=completed)
         if category is not None:
             filters = filters & Q(category=category)
-        if sprint is not None:
-            filters = filters & Q(sprint=sprint)
-        if user is not None:
-            filters = filters & Q(user=user)
+        if parent_task_id is not None:
+            filters = filters & Q(parent_task_id=parent_task_id)
+        if sprint_id is not None:
+            filters = filters & Q(sprint_id=sprint_id)
+        if user_id is not None:
+            filters = filters & Q(user_id=user_id)
+        if status_column_id is not None:
+            filters = filters & Q(status_column_id=status_column_id)
+        if completed_at is not None:
+            filters = filters & Q(completed_at=completed_at)
+        if completed_at__gte is not None:
+            filters = filters & Q(completed_at__gte=completed_at__gte)
+        if completed_at__lte is not None:
+            filters = filters & Q(completed_at__lte=completed_at__lte)
 
         tasks = Task.objects.filter(filters)
         return tasks

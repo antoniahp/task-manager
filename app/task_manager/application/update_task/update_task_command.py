@@ -1,16 +1,19 @@
+from dataclasses import dataclass
+from datetime import date
 from typing import Optional
 from uuid import UUID
 
-from ninja import Schema
+from cqrs.commands.command import Command
 
 
-class GetTaskSchema(Schema):
-    id: UUID
-    title: str
-    description: str
+@dataclass(frozen=True)
+class UpdateTaskCommand(Command):
+    task_id: UUID
+    title:str
+    description:str
     estimation: int
     completed: bool
-    category: str
+    category:str
     parent_task_id: Optional[UUID]
     sprint_id: Optional[UUID]
     project_id: Optional[UUID]

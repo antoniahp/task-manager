@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
@@ -17,3 +18,7 @@ class GetTaskQuery(Query):
     sprint: Optional[UUID] = None
     project: Optional[UUID] = None
     user: Optional[UUID] = None
+    status_column_id: Optional[UUID] = None
+    completed_at: Optional[datetime] =None
+    completed_at__gte: Optional[datetime]= None
+    completed_at__lte: Optional[datetime]= None

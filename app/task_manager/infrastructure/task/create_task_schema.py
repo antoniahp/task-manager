@@ -11,4 +11,5 @@ class CreateTaskSchema(Schema):
     parent_task: Optional[UUID]
     sprint: Optional[UUID]
     project: Optional[UUID]
-    user: Optional[UUID]
+    user_id: Optional[UUID]
+    status_column_id: Optional[UUID]
