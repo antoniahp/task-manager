@@ -51,7 +51,7 @@ def get_task(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None, category: Optional[str] = None,
              parent_task: Optional[UUID] = None, sprint: Optional[UUID] = None,
-             project: Optional[UUID] = None, user: Optional[UUID] = None, status_column: Optional[UUID] = None):
+             project: Optional[UUID] = None, user: Optional[UUID] = None, status_column_id: Optional[UUID] = None):
     query = GetTaskQuery(
         title=title,
         description=description,
@@ -62,7 +62,7 @@ def get_task(request, title: Optional[str] = None,
         sprint=sprint,
         project=project,
         user=user,
-        status_column=status_column
+        status_column_id=status_column_id
     )
 
     query_response = get_task_query_handler.handle(query)

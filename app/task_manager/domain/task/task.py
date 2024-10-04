@@ -15,6 +15,7 @@ class Task(models.Model):
     description = models.TextField()
     estimation = models.PositiveIntegerField()
     completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(null=True, blank=True)
     category = models.CharField(max_length=16,choices=TaskType.choices)
     status_column = models.ForeignKey(StatusColumn, related_name='tasks', on_delete=models.PROTECT, null=True, blank=True)
     parent_task = models.ForeignKey("task_manager.Task", related_name='subtasks', on_delete=models.PROTECT, null=True, blank=True)
