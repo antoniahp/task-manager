@@ -8,7 +8,7 @@ from cqrs.commands.command import Command
 class CreateUserCommand(Command):
     user_id: UUID
     name: str
-    company: UUID
+    company_id: UUID
     username: str
     password: str
     email: str

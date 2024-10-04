@@ -11,7 +11,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def filter_user(self, user_id: Optional[UUID], name: Optional[str], company:Optional[UUID]) -> Optional[User]:
+    def filter_users(self, user_id: Optional[UUID], name: Optional[str], company:Optional[UUID]) -> Optional[User]:
         pass
 
     @abstractmethod

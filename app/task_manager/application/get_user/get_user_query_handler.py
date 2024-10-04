@@ -9,5 +9,5 @@ class GetUserQueryHandler(QueryHandler):
         self.__user_repository = user_repository
 
     def handle(self, query: GetUserQuery):
-        user = self.__user_repository.filter_user(user_id=query.user_id, name=query.name, company=query.company)
-        return QueryResponse(content=user)
+        users = self.__user_repository.filter_users(user_id=query.user_id, name=query.name, company=query.company)
+        return QueryResponse(content=users)

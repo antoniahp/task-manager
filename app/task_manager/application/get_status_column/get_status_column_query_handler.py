@@ -9,5 +9,5 @@ class GetStatusColumnQueryHandler(QueryHandler):
         self.__status_column_repository = status_column_repository
 
     def handle(self, query: GetStatusColumnQuery) -> QueryResponse:
-        status_column= self.__status_column_repository.filter_status_column(status_column_id=query.status_column_id, name=query.name, company_id=query.company_id)
-        return QueryResponse(content=status_column)
+        status_columns = self.__status_column_repository.filter_status_columns(status_column_id=query.status_column_id, name=query.name, company_id=query.company_id)
+        return QueryResponse(content=status_columns)

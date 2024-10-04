@@ -1,6 +1,7 @@
 from cqrs.commands.command_handler import CommandHandler
 from task_manager.application.update_task.update_task_command import UpdateTaskCommand
 from task_manager.domain.task.task_repository import TaskRepository
+from task_manager.infrastructure.exceptions.task_not_found_exception import TaskNotFoundException
 
 
 class UpdateTaskCommandHandler(CommandHandler):
@@ -9,6 +10,9 @@ class UpdateTaskCommandHandler(CommandHandler):
 
     def handle(self, command: UpdateTaskCommand):
         task_filtered = self.__task_repository.filter_task_by_id(task_id=command.task_id)
+        if task_filtered is None:
+            raise TaskNotFoundException(task_id=command.task_id)
+
         task_filtered.title = command.title
         task_filtered.description = command.description
         task_filtered.estimation = command.estimation

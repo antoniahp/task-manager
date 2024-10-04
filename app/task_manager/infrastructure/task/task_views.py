@@ -35,10 +35,10 @@ def post_task(request, create_task_schema: CreateTaskSchema):
         estimation=create_task_schema.estimation,
         completed=create_task_schema.completed,
         category=create_task_schema.category,
-        parent_task=create_task_schema.parent_task,
-        sprint=create_task_schema.sprint,
-        project=create_task_schema.project,
-        user=create_task_schema.user,
+        parent_task_id=create_task_schema.parent_task_id,
+        sprint_id=create_task_schema.sprint_id,
+        project_id=create_task_schema.project_id,
+        user_id=create_task_schema.user_id,
         status_column_id=create_task_schema.status_column_id
     )
     create_task_command_handler.handle(command)

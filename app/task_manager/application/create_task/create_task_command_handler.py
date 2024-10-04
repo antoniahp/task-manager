@@ -17,10 +17,11 @@ class CreateTaskCommandHandler(CommandHandler):
             estimation=command.estimation,
             completed=command.completed,
             category=command.category,
-            parent_task_id=command.parent_task,
-            sprint_id=command.sprint,
-            project_id=command.project,
-            user_id=command.user,
-            status_column_id=command.status_column_id
+            parent_task_id=command.parent_task_id,
+            sprint_id=command.sprint_id,
+            project_id=command.project_id,
+            user_id=command.user_id,
+            status_column_id=command.status_column_id,
+            completed_at=command.completed_at
         )
         self.__task_repository.save_task(task)

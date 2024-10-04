@@ -13,7 +13,7 @@ class CreateUserCommandHandler(CommandHandler):
         user = self.user_creator.create_user(
             user_id=command.user_id,
             name=command.name,
-            company_id=command.company,
+            company_id=command.company_id,
             email=command.email,
             password=command.password,
             username=command.username
