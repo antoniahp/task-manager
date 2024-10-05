@@ -7,9 +7,7 @@ class CreateTaskSchema(Schema):
     description: str
     estimation: int
     completed: bool
-    category: str
-    parent_task: Optional[UUID]
-    sprint: Optional[UUID]
-    project: Optional[UUID]
-    user_id: Optional[UUID]
+    user_story_id: Optional[UUID]
+    sprint_id: Optional[UUID]
+    assigned_user_id: Optional[UUID]
     status_column_id: Optional[UUID]

@@ -13,11 +13,9 @@ class GetTaskQuery(Query):
     description: Optional[str]= None
     estimation: Optional[int]= None
     completed: Optional[bool]= None
-    category: Optional[str]= None
-    parent_task: Optional[UUID] = None
+    user_story_id: Optional[UUID] = None
     sprint: Optional[UUID] = None
-    project: Optional[UUID] = None
-    user: Optional[UUID] = None
+    assigned_user_id: Optional[UUID] = None
     status_column_id: Optional[UUID] = None
     completed_at: Optional[datetime] =None
     completed_at__gte: Optional[datetime]= None

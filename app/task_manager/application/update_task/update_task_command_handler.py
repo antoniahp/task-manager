@@ -17,11 +17,9 @@ class UpdateTaskCommandHandler(CommandHandler):
         task_filtered.description = command.description
         task_filtered.estimation = command.estimation
         task_filtered.completed = command.completed
-        task_filtered.category = command.category
-        task_filtered.parent_task_id= command.parent_task_id
+        task_filtered.user_story_id= command.user_story_id
         task_filtered.sprint_id= command.sprint_id
-        task_filtered.project_id= command.project_id
-        task_filtered.user_id= command.user_id
+        task_filtered.assigned_user_id= command.assigned_user_id
         task_filtered.status_column_id= command.status_column_id
 
         self.__task_repository.save_task(task_filtered)

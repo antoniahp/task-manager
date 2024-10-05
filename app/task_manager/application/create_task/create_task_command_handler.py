@@ -16,11 +16,9 @@ class CreateTaskCommandHandler(CommandHandler):
             description=command.description,
             estimation=command.estimation,
             completed=command.completed,
-            category=command.category,
-            parent_task_id=command.parent_task_id,
+            user_story_id=command.user_story_id,
             sprint_id=command.sprint_id,
-            project_id=command.project_id,
-            user_id=command.user_id,
+            assigned_user_id=command.assigned_user_id,
             status_column_id=command.status_column_id,
             completed_at=command.completed_at
         )
