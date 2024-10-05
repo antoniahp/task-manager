@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ninja_jwt.controller import NinjaJWTDefaultController
+from ninja_extra import NinjaExtraAPI
 
-from ninja import NinjaAPI
 
 from task_manager.infrastructure.companies.company_views import company_router
 from task_manager.infrastructure.graphics.graphic_view import graphics_router
@@ -27,7 +28,8 @@ from task_manager.infrastructure.task.task_views import task_router
 from task_manager.infrastructure.sprints.sprints_views import sprint_router
 from task_manager.infrastructure.users.user_views import user_router
 
-api = NinjaAPI()
+api = NinjaExtraAPI()
+api.register_controllers(NinjaJWTDefaultController)
 
 api.add_router("/tasks/", task_router)
 api.add_router("/sprints/", sprint_router)
