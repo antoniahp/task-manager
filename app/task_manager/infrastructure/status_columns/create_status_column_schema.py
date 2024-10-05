@@ -8,3 +8,4 @@ from ninja import Schema
 class CreateStatusColumnSchema(Schema):
     name: str
     company_id: Optional[UUID]
+    order: Optional[int]

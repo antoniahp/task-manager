@@ -21,10 +21,11 @@ get_status_column_query_handler = GetStatusColumnQueryHandler(status_column_repo
 create_status_column_command_handler = CreateStatusColumnCommandHandler(status_column_repository=status_column_repository, status_column_creator=status_column_creator)
 
 @status_columns_router.get("/status_columns", response=List[GetStatusColumnsSchema])
-def get_status_columns(request, name: Optional[str] = None, company_id: Optional[UUID] = None):
+def get_status_columns(request, name: Optional[str] = None, company_id: Optional[UUID] = None, order: Optional[int] = None,):
     query = GetStatusColumnQuery(
         name=name,
         company_id=company_id,
+        order=order
     )
 
     query_response = get_status_column_query_handler.handle(query)
@@ -40,6 +41,7 @@ def post_status_columns(request, create_status_columns_schema: CreateStatusColum
         status_column_id=id,
         name=create_status_columns_schema.name,
         company_id=create_status_columns_schema.company_id,
+        order=create_status_columns_schema.order
     )
     create_status_column_command_handler.handle(command)
     return IdentifierSchema(id=id)

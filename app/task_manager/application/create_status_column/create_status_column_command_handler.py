@@ -13,7 +13,8 @@ class CreateStatusColumnCommandHandler(CommandHandler):
         column = self.__status_column_creator.status_column_creator(
             status_column_id=command.status_column_id,
             name=command.name,
-            company_id=command.company_id
+            company_id=command.company_id,
+            order=command.order
         )
 
         self.__status_column_repository.save_status_column(column)
