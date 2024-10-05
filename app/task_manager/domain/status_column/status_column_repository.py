@@ -11,7 +11,7 @@ class StatusColumnRepository(ABC):
         pass
 
     @abstractmethod
-    def filter_status_columns(self, status_column_id: Optional[UUID], name: Optional[str], company_id: Optional[UUID], order: Optional[int]) -> Optional[StatusColumn]:
+    def filter_status_columns(self, status_column_id: Optional[UUID], name: Optional[str], company_id: Optional[UUID]) -> Optional[StatusColumn]:
         pass
 
     @abstractmethod

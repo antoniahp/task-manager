@@ -9,4 +9,3 @@ class GetStatusColumnQuery(Query):
     status_column_id: Optional[UUID] = None
     name:  Optional[str] = None
     company_id: Optional[UUID] = None
-    order: Optional[int] = None
