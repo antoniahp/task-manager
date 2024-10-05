@@ -9,4 +9,5 @@ from cqrs.commands.command import Command
 class CreateStatusColumnCommand(Command):
     status_column_id: UUID
     name: str
+    order: int
     company_id: Optional[UUID] = None

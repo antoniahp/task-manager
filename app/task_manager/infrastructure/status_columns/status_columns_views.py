@@ -40,6 +40,7 @@ def post_status_columns(request, create_status_columns_schema: CreateStatusColum
         status_column_id=id,
         name=create_status_columns_schema.name,
         company_id=create_status_columns_schema.company_id,
+        order=create_status_columns_schema.order
     )
     create_status_column_command_handler.handle(command)
     return IdentifierSchema(id=id)
