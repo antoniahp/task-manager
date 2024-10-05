@@ -35,13 +35,11 @@ def post_task(request, create_task_schema: CreateTaskSchema):
         description=create_task_schema.description,
         estimation=create_task_schema.estimation,
         completed=create_task_schema.completed,
-        category=create_task_schema.category,
-        parent_task_id=create_task_schema.parent_task_id,
+        user_story_id=create_task_schema.user_story_id,
         sprint_id=create_task_schema.sprint_id,
-        project_id=create_task_schema.project_id,
-        user_id=UUID("e49a7adb-299e-441c-87cd-5272916a095c"),  # cambiar por request.user.id
+        assigned_user_id=create_task_schema.assigned_user_id,
         status_column_id=create_task_schema.status_column_id,
-        completed_at=None
+        completed_at=create_task_schema.completed_at
     )
 
 
@@ -53,19 +51,17 @@ def post_task(request, create_task_schema: CreateTaskSchema):
 @task_router.get("/task", response=List[GetTaskSchema])
 def get_task(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
-             completed: Optional[bool] = None, category: Optional[str] = None,
-             parent_task: Optional[UUID] = None, sprint: Optional[UUID] = None,
-             project: Optional[UUID] = None, user: Optional[UUID] = None, status_column_id: Optional[UUID] = None):
+             completed: Optional[bool] = None,
+             user_story_id: Optional[UUID] = None, sprint: Optional[UUID] = None,
+             assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None):
     query = GetTaskQuery(
         title=title,
         description=description,
         estimation=estimation,
         completed=completed,
-        category=category,
-        parent_task=parent_task,
+        user_story_id=user_story_id,
         sprint=sprint,
-        project=project,
-        user=user,
+        assigned_user_id=assigned_user_id,
         status_column_id=status_column_id
     )
     query_response = get_task_query_handler.handle(query)
@@ -90,11 +86,9 @@ def update_task(request, task_id: UUID, task_schema: UpdateTaskSchema):
         description=task_schema.description,
         estimation=task_schema.estimation,
         completed=task_schema.completed,
-        category=task_schema.category,
-        parent_task_id=task_schema.parent_task_id,
+        user_story_id=task_schema.user_story_id,
         sprint_id=task_schema.sprint_id,
-        project_id=task_schema.project_id,
-        user_id=task_schema.user_id,
+        assigned_user_id=task_schema.assigned_user_id,
         status_column_id=task_schema.status_column_id
     )
     update_task_command_handler.handle(command)

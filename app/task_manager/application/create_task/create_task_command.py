@@ -14,10 +14,8 @@ class CreateTaskCommand(Command):
     description: str
     estimation: int
     completed: bool
-    category:str
-    parent_task_id: Optional[UUID] = None
+    completed_at: datetime
+    user_story_id: Optional[UUID] = None
     sprint_id: Optional[UUID] = None
-    project_id: Optional[UUID] = None
-    user_id: Optional[UUID] = None
+    assigned_user_id: Optional[UUID] = None
     status_column_id: Optional[UUID] = None
-    completed_at: Optional[datetime] = None

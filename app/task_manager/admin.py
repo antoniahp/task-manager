@@ -6,7 +6,7 @@ from task_manager.domain.sprint.sprint import Sprint
 from task_manager.domain.status_column.status_column import StatusColumn
 from task_manager.domain.task.task import Task
 from task_manager.domain.user.user import User
-
+from task_manager.domain.user_story.user_story import UserStory
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -28,7 +28,6 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "estimation",
-        "category",
         "completed",
     ]
 
@@ -56,5 +55,6 @@ admin.site.register(Task, TaskAdmin)
 admin.site.register(StatusColumn, StatusColumnAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(User, UserAdmin)
+admin.site.register(UserStory)
 
 
