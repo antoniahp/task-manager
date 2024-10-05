@@ -15,6 +15,7 @@ from ninja import Router
 
 from task_manager.infrastructure.identifier_schema import IdentifierSchema
 from task_manager.infrastructure.task.update_task_schema import UpdateTaskSchema
+from ninja_jwt.authentication import JWTAuth
 
 task_router = Router(tags=["tasks"])
 
@@ -25,7 +26,7 @@ get_task_query_handler = GetTaskQueryHandler(task_repository=task_repository)
 update_task_command_handler = UpdateTaskCommandHandler(task_repository=task_repository)
 
 
-@task_router.post("/task", response=IdentifierSchema)
+@task_router.post("/task", response=IdentifierSchema, auth=JWTAuth())
 def post_task(request, create_task_schema: CreateTaskSchema):
     id = uuid4()
     command = CreateTaskCommand(
@@ -40,6 +41,8 @@ def post_task(request, create_task_schema: CreateTaskSchema):
         status_column_id=create_task_schema.status_column_id,
         completed_at=create_task_schema.completed_at
     )
+
+
     create_task_command_handler.handle(command)
     return IdentifierSchema(id=id)
 
@@ -61,13 +64,12 @@ def get_task(request, title: Optional[str] = None,
         assigned_user_id=assigned_user_id,
         status_column_id=status_column_id
     )
-
     query_response = get_task_query_handler.handle(query)
     tasks = query_response.content
     return tasks
 
 @task_router.get("/task/{task_id}", response=GetTaskSchema)
-def get_task_by_id(request, task_id: UUID ):
+def get_task_by_id(request, task_id: UUID):
     query = GetTaskQuery(
         task_id=task_id,
     )
