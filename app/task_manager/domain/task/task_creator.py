@@ -6,7 +6,7 @@ from task_manager.domain.task.task import Task
 
 
 class TaskCreator:
-    def create_task(self, task_id: UUID, title:str, description:str, estimation: int, completed: bool, completed_at:datetime, sprint_id: Optional[UUID] = None, user_story_id: Optional[UUID] = None, assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None ) -> Task:
+    def create_task(self, task_id: UUID, title:str, description:str, estimation: int, completed: bool, completed_at:datetime, user_story_id:UUID, sprint_id: Optional[UUID] = None,  assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None ) -> Task:
         return Task(
             id=task_id,
             title=title,

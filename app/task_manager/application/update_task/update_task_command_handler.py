@@ -1,7 +1,7 @@
 from cqrs.commands.command_handler import CommandHandler
 from task_manager.application.update_task.update_task_command import UpdateTaskCommand
 from task_manager.domain.task.task_repository import TaskRepository
-from task_manager.infrastructure.exceptions.task_not_found_exception import TaskNotFoundException
+from task_manager.domain.exceptions.task_not_found_exception import TaskNotFoundException
 
 
 class UpdateTaskCommandHandler(CommandHandler):

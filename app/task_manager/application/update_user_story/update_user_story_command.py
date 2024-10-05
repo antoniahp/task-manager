@@ -7,13 +7,12 @@ from cqrs.commands.command import Command
 
 
 @dataclass(frozen=True)
-class UpdateTaskCommand(Command):
-    task_id: UUID
+class UpdateUserStoryCommand(Command):
+    user_story_id: UUID
     title:str
     description:str
     estimation: int
     completed: bool
-    user_story_id: UUID
-    sprint_id: Optional[UUID]
+    project_id: Optional[UUID]
     assigned_user_id: Optional[UUID]
     status_column_id: Optional[UUID]
