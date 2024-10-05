@@ -12,7 +12,7 @@ class DbUserRepository(UserRepository):
         user = User.objects.filter(id=user_id).first()
         return user
 
-    def filter_user(self, user_id: Optional[UUID], name: Optional[str], company:Optional[UUID]) -> Optional[User]:
+    def filter_users(self, user_id: Optional[UUID], name: Optional[str], company:Optional[UUID]) -> Optional[User]:
         filters = Q()
         if user_id is not None:
             filters = filters & Q(id=user_id)
