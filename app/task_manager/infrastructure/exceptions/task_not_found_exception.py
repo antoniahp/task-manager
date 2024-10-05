@@ -1,3 +1,6 @@
+from uuid import UUID
+
+
 class TaskNotFoundException(Exception):
     def __init__(self, task_id: UUID):
         self.task_id = task_id

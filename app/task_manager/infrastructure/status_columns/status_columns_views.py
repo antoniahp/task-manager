@@ -15,10 +15,10 @@ from task_manager.infrastructure.status_columns.get_status_columns_schema import
 
 status_columns_router = Router(tags=["status columns"])
 
-db_status_column_repository = DbStatusColumnRepository()
+status_column_repository = DbStatusColumnRepository()
 status_column_creator = StatusColumnCreator()
-get_status_column_query_handler = GetStatusColumnQueryHandler(status_column_repository=db_status_column_repository)
-create_status_column_command_handler = CreateStatusColumnCommandHandler(status_column_repository=db_status_column_repository, status_column_creator=status_column_creator)
+get_status_column_query_handler = GetStatusColumnQueryHandler(status_column_repository=status_column_repository)
+create_status_column_command_handler = CreateStatusColumnCommandHandler(status_column_repository=status_column_repository, status_column_creator=status_column_creator)
 
 @status_columns_router.get("/status_columns", response=List[GetStatusColumnsSchema])
 def get_status_columns(request, name: Optional[str] = None, company_id: Optional[UUID] = None):
