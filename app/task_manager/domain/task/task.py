@@ -16,7 +16,7 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     completed_at = models.DateTimeField(null=True, blank=True)
     status_column = models.ForeignKey(StatusColumn, related_name='tasks', on_delete=models.PROTECT, null=True, blank=True)
-    user_story = models.ForeignKey(UserStory, related_name='tasks', on_delete=models.PROTECT, null=True, blank=True)
+    user_story = models.ForeignKey(UserStory, related_name='tasks', on_delete=models.PROTECT)
     sprint = models.ForeignKey(Sprint, related_name='tasks', on_delete=models.PROTECT, null=True, blank=True)
     assigned_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
 
