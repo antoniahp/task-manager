@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from django.db.models import Q
@@ -13,7 +13,7 @@ class DbStatusColumnRepository(StatusColumnRepository):
         status_column = StatusColumn.objects.filter(id=status_column_id).first()
         return status_column
 
-    def filter_status_columns(self, status_column_id: Optional[UUID], name: Optional[str], company_id: Optional[UUID]) -> Optional[StatusColumn]:
+    def filter_status_columns(self, status_column_id: Optional[UUID] = None, name: Optional[str] = None, company_id: Optional[UUID] = None) -> List[StatusColumn]:
         filters = Q()
         if status_column_id is not None:
             filters = filters & Q(id=status_column_id)
