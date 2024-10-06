@@ -33,13 +33,13 @@ from task_manager.infrastructure.users.user_views import user_router
 api = NinjaExtraAPI()
 api.register_controllers(NinjaJWTDefaultController)
 
-api.add_router("/user_story/", user_story_router)
-api.add_router("/tasks/", task_router)
-api.add_router("/sprints/", sprint_router)
-api.add_router("/projects/", project_router)
-api.add_router("/status_columns/", status_columns_router)
-api.add_router("/company/", company_router)
 api.add_router("/users/", user_router)
+api.add_router("/company/", company_router)
+api.add_router("/projects/", project_router)
+api.add_router("/sprints/", sprint_router)
+api.add_router("/user-story/", user_story_router)
+api.add_router("/tasks/", task_router)
+api.add_router("/status-columns/", status_columns_router)
 api.add_router("/graphics/", graphics_router)
 
 

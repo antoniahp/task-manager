@@ -41,8 +41,8 @@ get_sprint_query_handler = GetSprintQueryHandler(sprint_repository=sprint_reposi
 update_sprint_command_handler = UpdateSprintCommandHandler(sprint_repository=sprint_repository)
 get_sprint_tasks_query_handler = GetSprintTasksQueryHandler(sprint_repository=sprint_repository, status_column_repository=status_column_repository, sprint_tasks_creator=sprint_tasks_creator, task_repository=task_repository)
 get_sprint_detail_query_handler = GetSprintDetailQueryHandler(sprint_repository=sprint_repository, task_repository=task_repository, sprint_detail_creator=sprint_detail_creator)
-@sprint_router.post("/sprints", response=IdentifierSchema)
-def post_sprint(request, create_sprint_schema: CreateSprintSchema):
+@sprint_router.post("/", response=IdentifierSchema)
+def create_sprint(request, create_sprint_schema: CreateSprintSchema):
     id = uuid4()
     command = CreateSprintCommand(
         sprint_id=id,
@@ -57,7 +57,7 @@ def post_sprint(request, create_sprint_schema: CreateSprintSchema):
     return IdentifierSchema(id=id)
 
 
-@sprint_router.get("/sprints", response=List[GetSprintsSchema])
+@sprint_router.get("/", response=List[GetSprintsSchema])
 def get_sprints(request, sprint_id: Optional[UUID] = None, name: Optional[str] = None, start_date: Optional[date] = None, end_date: Optional[date] = None, objective: Optional[str] = None, active: Optional[bool] = None):
     query = GetSprintQuery(
         sprint_id=sprint_id,
@@ -72,8 +72,8 @@ def get_sprints(request, sprint_id: Optional[UUID] = None, name: Optional[str] =
     sprints = query_response.content
     return sprints
 
-@sprint_router.get("/sprint/{sprint_id}", response=GetSprintsSchema)
-def get_sprints_by_id(request, sprint_id: UUID ):
+@sprint_router.get("/{sprint_id}", response=GetSprintsSchema)
+def get_sprint_by_id(request, sprint_id: UUID ):
     query = GetSprintQuery(
         sprint_id=sprint_id,
     )
@@ -82,8 +82,28 @@ def get_sprints_by_id(request, sprint_id: UUID ):
     sprint = query_response.content
     return sprint[0]
 
+@sprint_router.get("/{sprint_id}/tasks", response=List[SprintTasksColumnSchema])
+def get_sprint_tasks_by_columns(request, sprint_id: UUID):
+    query = GetSprintTasksQuery(
+        sprint_id=sprint_id
+    )
+    query_response = get_sprint_tasks_query_handler.handle(query)
+    sprint_tasks = query_response.content
+    return sprint_tasks.columns
 
-@sprint_router.put("/sprint/{sprint_id}")
+
+
+@sprint_router.get("/{sprint_id}/detail", response=GetSprintDetailSchema)
+def get_sprint_detail(request, sprint_id: UUID):
+    query = GetSprintDetailQuery(
+        sprint_id=sprint_id
+    )
+    query_response = get_sprint_detail_query_handler.handle(query)
+    sprint_detail = query_response.content
+    return sprint_detail
+
+
+@sprint_router.put("/{sprint_id}")
 def update_sprint(request, sprint_id: UUID, update_schema: UpdateSprintSchema):
     command = UpdateSprintCommand(
         sprint_id=sprint_id,
@@ -96,24 +116,3 @@ def update_sprint(request, sprint_id: UUID, update_schema: UpdateSprintSchema):
     update_sprint_command_handler.handle(command)
     return {"success": True}
 
-
-@sprint_router.get("/sprint/{sprint_id}/tasks-column", response=List[SprintTasksColumnSchema])
-def get_sprint_tasks_column(request, sprint_id: UUID):
-    query = GetSprintTasksQuery(
-        sprint_id=sprint_id
-    )
-    query_response = get_sprint_tasks_query_handler.handle(query)
-    sprint_tasks = query_response.content
-    return sprint_tasks.columns
-
-
-
-@sprint_router.get("/sprint/{sprint_id}/sprint-detail", response=GetSprintDetailSchema)
-def get_sprint_detail(request, sprint_id: UUID):
-    query = GetSprintDetailQuery(
-        sprint_id=sprint_id
-    )
-    query_response = get_sprint_detail_query_handler.handle(query)
-    sprint_detail = query_response.content
-    print(sprint_detail)
-    return sprint_detail

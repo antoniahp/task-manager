@@ -23,7 +23,8 @@ class TaskRepository(ABC):
                     status_column_id: Optional[UUID] = None,
                     completed_at:Optional[datetime] = None,
                     completed_at__gte:Optional[datetime] = None,
-                    completed_at__lte:Optional[datetime] = None)  -> List[Task]:
+                    completed_at__lte:Optional[datetime] = None,
+                    project_id: Optional[UUID] = None)  -> List[Task]:
         pass
 
     @abstractmethod

@@ -26,8 +26,8 @@ get_task_query_handler = GetTaskQueryHandler(task_repository=task_repository)
 update_task_command_handler = UpdateTaskCommandHandler(task_repository=task_repository)
 
 
-@task_router.post("/task", response=IdentifierSchema, auth=JWTAuth())
-def post_task(request, create_task_schema: CreateTaskSchema):
+@task_router.post("/", response=IdentifierSchema, auth=JWTAuth())
+def create_task(request, create_task_schema: CreateTaskSchema):
     id = uuid4()
     command = CreateTaskCommand(
         task_id=id,
@@ -48,8 +48,8 @@ def post_task(request, create_task_schema: CreateTaskSchema):
 
 
 
-@task_router.get("/task", response=List[GetTaskSchema])
-def get_task(request, title: Optional[str] = None,
+@task_router.get("/", response=List[GetTaskSchema])
+def get_tasks(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None,
              user_story_id: Optional[UUID] = None, sprint: Optional[UUID] = None,
@@ -69,7 +69,7 @@ def get_task(request, title: Optional[str] = None,
     tasks = query_response.content
     return tasks
 
-@task_router.get("/task/{task_id}", response=GetTaskSchema)
+@task_router.get("/{task_id}", response=GetTaskSchema)
 def get_task_by_id(request, task_id: UUID):
     query = GetTaskQuery(
         task_id=task_id,
@@ -80,7 +80,7 @@ def get_task_by_id(request, task_id: UUID):
     task = query_response.content
     return task[0]
 
-@task_router.put("/task/{task_id}")
+@task_router.put("/{task_id}")
 def update_task(request, task_id: UUID, task_schema: UpdateTaskSchema):
     command = UpdateTaskCommand(
         task_id=task_id,
@@ -96,4 +96,3 @@ def update_task(request, task_id: UUID, task_schema: UpdateTaskSchema):
     )
     update_task_command_handler.handle(command)
     return {"success": True}
-

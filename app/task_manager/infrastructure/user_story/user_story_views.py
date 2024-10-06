@@ -24,8 +24,8 @@ user_story_creator=UserStoryCreator()
 create_user_story_command_handler = CreateUserStoryCommandHandler(user_story_creator=user_story_creator, user_story_repository=user_story_repository)
 get_user_story_query_handler = GetUserStoryQueryHandler(user_story_repository=user_story_repository)
 update_user_story_command_handler = UpdateUserStoryCommandHandler(user_story_repository=user_story_repository)
-@user_story_router.post("/user_story", response=IdentifierSchema)
-def post_user_story(request, create_user_story_schema: CreateUserStorySchema):
+@user_story_router.post("/", response=IdentifierSchema)
+def create_user_story(request, create_user_story_schema: CreateUserStorySchema):
     id = uuid4()
     command = CreateUserStoryCommand(
         user_story_id=id,
@@ -44,19 +44,8 @@ def post_user_story(request, create_user_story_schema: CreateUserStorySchema):
     return IdentifierSchema(id=id)
 
 
-@user_story_router.get("/user_story/{user_story_id}", response=GetUserStorySchema)
-def get_user_story_by_id(request, user_story_id: UUID):
-    query = GetUserStoryQuery(
-        user_story_id=user_story_id,
-    )
-
-    query_response = get_user_story_query_handler.handle(query)
-    user_story = query_response.content
-    return user_story[0]
-
-
-@user_story_router.get("/user_story", response=List[GetUserStorySchema])
-def get_user_story(request, title: Optional[str] = None, description: Optional[str] = None, estimation: Optional[int] = None,
+@user_story_router.get("/", response=List[GetUserStorySchema])
+def get_user_stories(request, title: Optional[str] = None, description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None, project_id: Optional[UUID] = None, assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None):
     query = GetUserStoryQuery(
         title=title,
@@ -72,7 +61,18 @@ def get_user_story(request, title: Optional[str] = None, description: Optional[s
     return user_stories
 
 
-@user_story_router.put("/user_story/{user_story_id}")
+@user_story_router.get("/{user_story_id}", response=GetUserStorySchema)
+def get_user_story_by_id(request, user_story_id: UUID):
+    query = GetUserStoryQuery(
+        user_story_id=user_story_id,
+    )
+
+    query_response = get_user_story_query_handler.handle(query)
+    user_story = query_response.content
+    return user_story[0]
+
+
+@user_story_router.put("/{user_story_id}")
 def update_user_story(request, user_story_id: UUID, user_story_schema: UpdateUserStorySchema):
     command = UpdateUserStoryCommand(
         user_story_id=user_story_id,

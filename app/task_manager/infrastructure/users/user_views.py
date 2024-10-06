@@ -20,13 +20,13 @@ user_creator = UserCreator()
 user_repository = DbUserRepository()
 create_user_command_handler = CreateUserCommandHandler(user_creator=user_creator, user_repository=user_repository)
 get_user_query_handler = GetUserQueryHandler(user_repository=user_repository)
-@user_router.post("/users", response=IdentifierSchema)
-def post_user(request, create_user_schema: CreateUserSchema):
+@user_router.post("/", response=IdentifierSchema)
+def create_user(request, create_user_schema: CreateUserSchema):
     id = uuid4()
     command = CreateUserCommand(
         user_id=id,
         name=create_user_schema.name,
-        company=create_user_schema.company,
+        company_id=create_user_schema.company,
         username=create_user_schema.username,
         email=create_user_schema.email,
         password=create_user_schema.password
@@ -35,17 +35,7 @@ def post_user(request, create_user_schema: CreateUserSchema):
     return IdentifierSchema(id=id)
 
 
-@user_router.get("/user/{user_id}", response=GetUserSchema)
-def get_user_by_id(request, user_id: UUID ):
-    query = GetUserQuery(
-        user_id=user_id
-    )
-
-    query_response = get_user_query_handler.handle(query)
-    user = query_response.content
-    return user
-
-@user_router.get("/users/", response=List[GetUserSchema])
+@user_router.get("/", response=List[GetUserSchema])
 def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = None, company: Optional[str] = None):
     query = GetUserQuery(
         user_id=user_id,
@@ -56,4 +46,15 @@ def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = Non
     query_response = get_user_query_handler.handle(query)
     users = query_response.content
     return users
+
+
+@user_router.get("/{user_id}", response=GetUserSchema)
+def get_user_by_id(request, user_id: UUID ):
+    query = GetUserQuery(
+        user_id=user_id
+    )
+
+    query_response = get_user_query_handler.handle(query)
+    user = query_response.content
+    return user
 

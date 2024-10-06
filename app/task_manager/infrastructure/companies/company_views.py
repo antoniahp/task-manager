@@ -19,7 +19,18 @@ db_company_repository = DbCompanyRepository()
 company_creator = CompanyCreator()
 get_company_query_handler = GetCompanyQueryHandler(company_repository=db_company_repository)
 create_company_command_handler = CreateCompanyCommandHandler(company_repository=db_company_repository, company_creator=company_creator)
-@company_router.get("/company", response=List[GetCompanySchema])
+
+@company_router.post("/", response=IdentifierSchema)
+def create_company(request, create_company_schema: CreateCompanySchema):
+    id = uuid4()
+    command = CreateCompanyCommand(
+        company_id=id,
+        name=create_company_schema.name,
+    )
+    create_company_command_handler.handle(command)
+    return IdentifierSchema(id=id)
+
+@company_router.get("/", response=List[GetCompanySchema])
 def get_companies(request, company_id: Optional[UUID] = None, name: Optional[str] = None):
     query = GetCompanyQuery(
         company_id=company_id,
@@ -32,8 +43,8 @@ def get_companies(request, company_id: Optional[UUID] = None, name: Optional[str
     return companies
 
 
-@company_router.get("/company/{company_id}", response=GetCompanySchema)
-def get_sprints_by_id(request, company_id: UUID ):
+@company_router.get("/{company_id}", response=GetCompanySchema)
+def get_company_by_id(request, company_id: UUID ):
     query = GetCompanyQuery(
         company_id=company_id
     )
@@ -42,12 +53,3 @@ def get_sprints_by_id(request, company_id: UUID ):
     company = query_response.content
     return company
 
-@company_router.post("/company", response=IdentifierSchema)
-def post_company(request, create_company_schema: CreateCompanySchema):
-    id = uuid4()
-    command = CreateCompanyCommand(
-        company_id=id,
-        name=create_company_schema.name,
-    )
-    create_company_command_handler.handle(command)
-    return IdentifierSchema(id=id)

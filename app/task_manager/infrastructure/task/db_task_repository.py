@@ -24,7 +24,8 @@ class DbTaskRepository(TaskRepository):
                     status_column_id: Optional[UUID] = None,
                     completed_at:Optional[datetime] = None,
                     completed_at__gte:Optional[datetime] = None,
-                    completed_at__lte:Optional[datetime] = None)  -> List[Task]:
+                    completed_at__lte:Optional[datetime] = None,
+                    project_id: Optional[UUID] = None)  -> List[Task]:
         filters = Q()
         if task_id is not None:
             filters = filters & Q(id=task_id)
@@ -50,6 +51,8 @@ class DbTaskRepository(TaskRepository):
             filters = filters & Q(completed_at__gte=completed_at__gte)
         if completed_at__lte is not None:
             filters = filters & Q(completed_at__lte=completed_at__lte)
+        if project_id is not None:
+            filters = filters & Q(user_story__project_id=project_id)
 
         tasks = Task.objects.filter(filters)
         return tasks
