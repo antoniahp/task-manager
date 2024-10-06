@@ -115,5 +115,4 @@ def get_sprint_detail(request, sprint_id: UUID):
     )
     query_response = get_sprint_detail_query_handler.handle(query)
     sprint_detail = query_response.content
-    print(sprint_detail)
     return sprint_detail
