@@ -13,11 +13,13 @@ class DbSprintRepository(SprintRepository):
         sprint = Sprint.objects.filter(id=sprint_id).first()
         return sprint
 
-    def filter_sprint(self, sprint_id: Optional[UUID] = None, name: Optional[str] = None,
+    def filter_sprint(self, company_id: Optional[UUID] = None,  sprint_id: Optional[UUID] = None, name: Optional[str] = None,
              start_date: Optional[date] = None, end_date: Optional[date] = None, objective: Optional[str] = None, active: Optional[bool] = None) -> List[Sprint]:
         filters = Q()
         if sprint_id is not None:
             filters = filters & Q(id=sprint_id)
+        if company_id is not None:
+            filters = filters & Q(company_id=company_id)
         if name is not None:
             filters = filters & Q(name=name)
         if start_date is not None:

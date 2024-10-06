@@ -7,6 +7,8 @@ from cqrs.commands.command import Command
 
 @dataclass(frozen=True)
 class CreateSprintCommand(Command):
+    company_id: UUID
+    requester_user_id: UUID
     sprint_id: UUID
     name: str
     objective: str
