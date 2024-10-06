@@ -11,7 +11,7 @@ class SprintRepository(ABC):
     def filter_sprint_by_id (self, sprint_id: UUID) -> Optional[Sprint]:
         pass
     @abstractmethod
-    def filter_sprint(self, sprint_id: Optional[UUID] = None, name: Optional[str] = None,
+    def filter_sprint(self, company_id: Optional[UUID] = None, sprint_id: Optional[UUID] = None, name: Optional[str] = None,
                       start_date: Optional[date] = None, end_date: Optional[date] = None, objective: Optional[str] = None, active: Optional[bool] = None) -> List[Sprint]:
         pass
 
