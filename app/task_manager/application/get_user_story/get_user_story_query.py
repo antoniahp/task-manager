@@ -8,6 +8,8 @@ from cqrs.queries.query import Query
 
 @dataclass(frozen=True)
 class GetUserStoryQuery(Query):
+    company_id: UUID
+    requester_user_id: UUID
     user_story_id: Optional[UUID] = None
     title: Optional[str]= None
     description: Optional[str]= None
