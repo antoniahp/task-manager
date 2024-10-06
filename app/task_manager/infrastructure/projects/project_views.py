@@ -30,12 +30,12 @@ project_detail_creator = ProjectDetailCreator()
 task_repository =DbTaskRepository()
 project_repository = DbProjectRepository()
 project_creator = ProjectCreator()
-user_repository= DbUserRepository()
+user_repository = DbUserRepository()
 create_sprint_command_handler = CreateProjectCommandHandler(project_repository=project_repository, project_creator=project_creator, user_repository=user_repository)
 get_project_query_handler = GetProjectQueryHandler(project_repository=project_repository, user_repository=user_repository)
-get_project_detail_query_handler = GetProjectDetailQueryHandler(project_repository=project_repository, task_repository=task_repository, project_detail_creator=project_detail_creator)
+get_project_detail_query_handler = GetProjectDetailQueryHandler(project_repository=project_repository, task_repository=task_repository, project_detail_creator=project_detail_creator, user_repository=user_repository)
 
-@project_router.post("/", response={200:IdentifierSchema, 403: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
+@project_router.post("/", response={200: IdentifierSchema, 403: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
 def create_project(request, company_id: UUID, create_project_schema: CreateProjectSchema):
     id = uuid4()
     command = CreateProjectCommand(

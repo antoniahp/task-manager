@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 from uuid import UUID
 
 from cqrs.commands.command import Command
@@ -10,4 +9,5 @@ class CreateStatusColumnCommand(Command):
     status_column_id: UUID
     name: str
     order: int
-    company_id: Optional[UUID] = None
+    company_id: UUID
+    requester_user_id: UUID

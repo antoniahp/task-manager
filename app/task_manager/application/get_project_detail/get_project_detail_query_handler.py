@@ -11,11 +11,14 @@ from task_manager.domain.user.user_repository import UserRepository
 
 
 class GetProjectDetailQueryHandler(QueryHandler):
-    def __init__(self, task_repository: TaskRepository, project_detail_creator: ProjectDetailCreator, project_repository: ProjectRepository, user_repository:UserRepository):
+    def __init__(self, task_repository: TaskRepository,
+                 project_detail_creator: ProjectDetailCreator,
+                 project_repository: ProjectRepository, user_repository: UserRepository):
         self.__task_repository = task_repository
         self.__project_detail_creator = project_detail_creator
         self.__project_repository = project_repository
-        self.__user_repository =user_repository
+        self.__user_repository = user_repository
+
     def handle(self, query: GetProjectDetailQuery) -> QueryResponse:
         requester_user = self.__user_repository.filter_user_by_id(user_id=query.requester_user_id)
         if requester_user is None:

@@ -8,6 +8,6 @@ class GetCompanyQueryHandler(QueryHandler):
     def __init__(self, company_repository: CompanyRepository):
         self.__company_repository = company_repository
 
-    def handle(self, query: GetCompanyQuery):
+    def handle(self, query: GetCompanyQuery) -> QueryResponse:
         company = self.__company_repository.filter_company(company_id=query.company_id, name=query.name)
         return QueryResponse(content=company)

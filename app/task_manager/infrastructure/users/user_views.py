@@ -2,6 +2,7 @@ from typing import List, Optional
 from uuid import uuid4, UUID
 
 from ninja import Router
+from ninja_jwt.authentication import JWTAuth
 
 from task_manager.application.create_user.create_user_command import CreateUserCommand
 from task_manager.application.create_user.create_user_command_handler import CreateUserCommandHandler
@@ -52,6 +53,16 @@ def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = Non
 def get_user_by_id(request, user_id: UUID ):
     query = GetUserQuery(
         user_id=user_id
+    )
+
+    query_response = get_user_query_handler.handle(query)
+    user = query_response.content
+    return user
+
+@user_router.get("/logged-user", response=GetUserSchema,  auth=JWTAuth())
+def get_logged_user(request):
+    query = GetUserQuery(
+        user_id=request.user.id
     )
 
     query_response = get_user_query_handler.handle(query)

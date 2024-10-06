@@ -9,7 +9,7 @@ class CreateUserCommandHandler(CommandHandler):
         self.user_repository = user_repository
         self.user_creator = user_creator
 
-    def handle(self, command: CreateUserCommand):
+    def handle(self, command: CreateUserCommand) -> None:
         user = self.user_creator.create_user(
             user_id=command.user_id,
             name=command.name,
