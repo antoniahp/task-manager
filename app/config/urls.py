@@ -21,7 +21,6 @@ from ninja_extra import NinjaExtraAPI
 
 
 from task_manager.infrastructure.companies.company_views import company_router
-from task_manager.infrastructure.graphics.graphic_view import graphics_router
 from task_manager.infrastructure.projects.project_views import project_router
 from task_manager.infrastructure.status_columns.status_columns_views import status_columns_router
 from task_manager.infrastructure.task.task_views import task_router
@@ -40,9 +39,6 @@ api.add_router("/sprints/", sprint_router)
 api.add_router("/user-story/", user_story_router)
 api.add_router("/tasks/", task_router)
 api.add_router("/status-columns/", status_columns_router)
-api.add_router("/graphics/", graphics_router)
-
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),

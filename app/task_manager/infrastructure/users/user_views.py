@@ -21,6 +21,8 @@ user_creator = UserCreator()
 user_repository = DbUserRepository()
 create_user_command_handler = CreateUserCommandHandler(user_creator=user_creator, user_repository=user_repository)
 get_user_query_handler = GetUserQueryHandler(user_repository=user_repository)
+
+
 @user_router.post("/", response=IdentifierSchema)
 def create_user(request, create_user_schema: CreateUserSchema):
     id = uuid4()
@@ -35,29 +37,6 @@ def create_user(request, create_user_schema: CreateUserSchema):
     create_user_command_handler.handle(command)
     return IdentifierSchema(id=id)
 
-
-@user_router.get("/", response=List[GetUserSchema])
-def get_users(request, user_id: Optional[UUID] = None, name: Optional[str] = None, company: Optional[str] = None):
-    query = GetUserQuery(
-        user_id=user_id,
-        name=name,
-        company=company
-    )
-
-    query_response = get_user_query_handler.handle(query)
-    users = query_response.content
-    return users
-
-
-@user_router.get("/{user_id}", response=GetUserSchema)
-def get_user_by_id(request, user_id: UUID ):
-    query = GetUserQuery(
-        user_id=user_id
-    )
-
-    query_response = get_user_query_handler.handle(query)
-    user = query_response.content
-    return user
 
 @user_router.get("/logged-user", response=GetUserSchema,  auth=JWTAuth())
 def get_logged_user(request):

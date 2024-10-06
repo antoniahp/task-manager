@@ -20,7 +20,6 @@ from task_manager.domain.sprint.sprint_creator import SprintCreator
 from task_manager.domain.sprint_detail.sprint_detail_creator import SprintDetailCreator
 from task_manager.domain.sprint_tasks.sprint_tasks_creator import SprintTasksCreator
 from task_manager.infrastructure.error_message_schema import ErrorMessageSchema
-from task_manager.infrastructure.graphics.graphic_view import task_repository
 from task_manager.infrastructure.identifier_schema import IdentifierSchema
 from task_manager.infrastructure.sprints.create_sprint_schema import CreateSprintSchema
 from task_manager.infrastructure.sprints.db_sprint_repository import DbSprintRepository
@@ -31,6 +30,7 @@ from task_manager.infrastructure.sprints.get_sprints_schema import GetSprintsSch
 from task_manager.infrastructure.sprints.sprint_tasks_column_schema import SprintTasksColumnSchema
 from task_manager.infrastructure.sprints.update_sprint_schema import UpdateSprintSchema
 from task_manager.infrastructure.status_columns.db_status_column_repository import DbStatusColumnRepository
+from task_manager.infrastructure.task.db_task_repository import DbTaskRepository
 from task_manager.infrastructure.users.db_user_repository import DbUserRepository
 
 sprint_router = Router(tags=['sprints'])
@@ -43,6 +43,7 @@ sprint_detail_creator = SprintDetailCreator()
 sprint_tasks_creator = SprintTasksCreator()
 status_column_repository = DbStatusColumnRepository()
 user_repository = DbUserRepository()
+task_repository = DbTaskRepository()
 create_sprint_command_handler = CreateSprintCommandHandler(sprint_repository=sprint_repository, sprint_creator=sprint_creator, user_repository=user_repository)
 get_sprint_query_handler = GetSprintQueryHandler(sprint_repository=sprint_repository, user_repository=user_repository)
 update_sprint_command_handler = UpdateSprintCommandHandler(sprint_repository=sprint_repository, user_repository=user_repository)
