@@ -16,10 +16,12 @@ class DbUserStoryRepository(UserStoryRepository):
         return user_story
     def filter_user_story(self, user_story_id: Optional[UUID] = None, title:Optional[str] = None, estimation: Optional[int] = None, completed: Optional[bool] = None,
                      project_id: Optional[UUID] = None, assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None, completed_at:Optional[datetime] = None,
-                    completed_at__gte:Optional[datetime] = None ,completed_at__lte:Optional[datetime] = None) -> List[UserStory]:
+                    completed_at__gte:Optional[datetime] = None ,completed_at__lte:Optional[datetime] = None, company_id: Optional[UUID] = None,) -> List[UserStory]:
         filters = Q()
         if user_story_id is not None:
             filters = filters & Q(id=user_story_id)
+        if company_id is not None:
+            filters = filters & Q(project__company_id=company_id)
         if title is not None:
             filters = filters & Q(title=title)
         if estimation is not None:

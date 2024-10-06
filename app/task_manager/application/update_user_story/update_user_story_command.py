@@ -8,6 +8,8 @@ from cqrs.commands.command import Command
 
 @dataclass(frozen=True)
 class UpdateUserStoryCommand(Command):
+    requester_user_id: UUID
+    company_id :UUID
     user_story_id: UUID
     title:str
     description:str
