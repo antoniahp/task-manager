@@ -14,7 +14,7 @@ class GetSprintDetailQueryHandler(QueryHandler):
 
     def handle(self, query: GetSprintDetailQuery):
         sprint = self.__sprint_repository.filter_sprint_by_id(sprint_id=query.sprint_id)
-        tasks = self.__task_repository.filter_task(sprint_id=query.sprint_id)
+        tasks = self.__task_repository.filter_task(sprint_id=query.sprint_id, completed=True)
         sprint_detail = self.__sprint_detail_creator.create(
             tasks=tasks,
             sprint=sprint,

@@ -16,6 +16,7 @@ class TaskRepository(ABC):
                     title:Optional[str] = None,
                     estimation: Optional[int] = None,
                     completed: Optional[bool] = None,
+                    deleted: Optional[bool] = None,
                     user_story_id: Optional[UUID] = None,
                     sprint_id: Optional[UUID] = None,
                     assigned_user_id: Optional[UUID] = None,

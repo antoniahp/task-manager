@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from cqrs.commands.command_handler import CommandHandler
 from task_manager.application.update_task.update_task_command import UpdateTaskCommand
 from task_manager.domain.task.task_repository import TaskRepository
@@ -16,10 +18,16 @@ class UpdateTaskCommandHandler(CommandHandler):
         task_filtered.title = command.title
         task_filtered.description = command.description
         task_filtered.estimation = command.estimation
-        task_filtered.completed = command.completed
         task_filtered.user_story_id= command.user_story_id
         task_filtered.sprint_id= command.sprint_id
         task_filtered.assigned_user_id= command.assigned_user_id
         task_filtered.status_column_id= command.status_column_id
+        task_filtered.deleted = command.deleted
+        if command.completed == True and task_filtered.completed == False:
+            task_filtered.completed_at = datetime.now()
+            task_filtered.completed= command.completed
+
+
+
 
         self.__task_repository.save_task(task_filtered)

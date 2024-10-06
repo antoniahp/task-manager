@@ -39,7 +39,7 @@ def post_task(request, create_task_schema: CreateTaskSchema):
         sprint_id=create_task_schema.sprint_id,
         assigned_user_id=create_task_schema.assigned_user_id,
         status_column_id=create_task_schema.status_column_id,
-        completed_at=create_task_schema.completed_at
+        completed_at=create_task_schema.completed_at,
     )
 
 
@@ -62,7 +62,8 @@ def get_task(request, title: Optional[str] = None,
         user_story_id=user_story_id,
         sprint=sprint,
         assigned_user_id=assigned_user_id,
-        status_column_id=status_column_id
+        status_column_id=status_column_id,
+        deleted=False
     )
     query_response = get_task_query_handler.handle(query)
     tasks = query_response.content
@@ -72,6 +73,7 @@ def get_task(request, title: Optional[str] = None,
 def get_task_by_id(request, task_id: UUID):
     query = GetTaskQuery(
         task_id=task_id,
+        deleted=False
     )
 
     query_response = get_task_query_handler.handle(query)
@@ -89,7 +91,8 @@ def update_task(request, task_id: UUID, task_schema: UpdateTaskSchema):
         user_story_id=task_schema.user_story_id,
         sprint_id=task_schema.sprint_id,
         assigned_user_id=task_schema.assigned_user_id,
-        status_column_id=task_schema.status_column_id
+        status_column_id=task_schema.status_column_id,
+        deleted=task_schema.deleted
     )
     update_task_command_handler.handle(command)
     return {"success": True}

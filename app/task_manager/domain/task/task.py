@@ -19,6 +19,7 @@ class Task(models.Model):
     user_story = models.ForeignKey(UserStory, related_name='tasks', on_delete=models.PROTECT)
     sprint = models.ForeignKey(Sprint, related_name='tasks', on_delete=models.PROTECT, null=True, blank=True)
     assigned_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
