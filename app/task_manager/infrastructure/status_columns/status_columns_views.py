@@ -33,7 +33,7 @@ def get_status_columns(request, name: Optional[str] = None, company_id: Optional
 
 
 
-@status_columns_router.post("/status-columns", response=IdentifierSchema)
+@status_columns_router.post("/", response=IdentifierSchema)
 def post_status_columns(request, create_status_columns_schema: CreateStatusColumnSchema):
     id = uuid4()
     command = CreateStatusColumnCommand(
@@ -46,7 +46,7 @@ def post_status_columns(request, create_status_columns_schema: CreateStatusColum
     return IdentifierSchema(id=id)
 
 
-@status_columns_router.get("/status-columns/{status_column_id}", response=GetStatusColumnsSchema)
+@status_columns_router.get("/{status_column_id}", response=GetStatusColumnsSchema)
 def get_status_columns_by_id(request, status_column_id: UUID):
     query = GetStatusColumnQuery(
         status_column_id=status_column_id,
