@@ -6,7 +6,7 @@ from ninja import Router
 from task_manager.application.get_task.get_task_query import GetTaskQuery
 from task_manager.application.get_task.get_task_query_handler import GetTaskQueryHandler
 from task_manager.infrastructure.graphics.date_value_graphic_schema import DateValueGraphicSchema
-from task_manager.infrastructure.task.task_to_date_value_graph_schema_adaptor import TasksToDateValueGraphSchemaAdapter
+from task_manager.infrastructure.graphics.task_to_date_value_graph_schema_adaptor import TasksToDateValueGraphSchemaAdapter
 from task_manager.infrastructure.task.db_task_repository import DbTaskRepository
 
 graphics_router = Router(tags=["graphics"])
