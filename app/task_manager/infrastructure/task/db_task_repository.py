@@ -17,6 +17,7 @@ class DbTaskRepository(TaskRepository):
                     title:Optional[str] = None,
                     estimation: Optional[int] = None,
                     completed: Optional[bool] = None,
+                    deleted: Optional[bool] = None,
                     user_story_id: Optional[UUID] = None,
                     sprint_id: Optional[UUID] = None,
                     assigned_user_id: Optional[UUID] = None,
@@ -33,6 +34,8 @@ class DbTaskRepository(TaskRepository):
             filters = filters & Q(estimation=estimation)
         if completed is not None:
             filters = filters & Q(completed=completed)
+        if deleted is not None:
+            filters = filters & Q(deleted=deleted)
         if user_story_id is not None:
             filters = filters & Q(user_story_id=user_story_id)
         if sprint_id is not None:

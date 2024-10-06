@@ -7,6 +7,7 @@ class CreateTaskSchema(Schema):
     description: str
     estimation: int
     completed: bool
+    deleted: bool
     user_story_id: UUID
     sprint_id: Optional[UUID]
     assigned_user_id: Optional[UUID]
