@@ -9,7 +9,7 @@ class CreateCompanyCommandHandler(CommandHandler):
         self.__company_repository = company_repository
         self.__company_creator =company_creator
 
-    def handle(self, command: CreateCompanyCommand):
+    def handle(self, command: CreateCompanyCommand) -> None:
         company = self.__company_creator.create_company(
             company_id = command.company_id,
             name=command.name

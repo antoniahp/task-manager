@@ -11,13 +11,15 @@ from task_manager.domain.user.user_repository import UserRepository
 
 
 class GetSprintDetailQueryHandler(QueryHandler):
-    def __init__(self, task_repository: TaskRepository, sprint_repository: SprintRepository, sprint_detail_creator: SprintDetailCreator, user_repository: UserRepository):
+    def __init__(self, task_repository: TaskRepository,
+                 sprint_repository: SprintRepository,
+                 sprint_detail_creator: SprintDetailCreator, user_repository: UserRepository):
         self.__task_repository = task_repository
         self.__sprint_repository = sprint_repository
         self.__sprint_detail_creator = sprint_detail_creator
         self.__user_repository = user_repository
 
-    def handle(self, query: GetSprintDetailQuery):
+    def handle(self, query: GetSprintDetailQuery) -> QueryResponse:
         requester_user = self.__user_repository.filter_user_by_id(user_id=query.requester_user_id)
         if requester_user is None:
             raise UserNotFoundException(user_id=query.requester_user_id)

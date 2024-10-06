@@ -19,7 +19,7 @@ class CreateTaskCommand(Command):
     deleted: bool
     completed_at: datetime
     user_story_id: UUID
-    sprint_id: Optional[UUID] = None
-    assigned_user_id: Optional[UUID] = None
-    status_column_id: Optional[UUID] = None
+    sprint_id: UUID
+    assigned_user_id: UUID
+    status_column_id: UUID
 

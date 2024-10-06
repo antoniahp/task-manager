@@ -14,7 +14,7 @@ class UpdateTaskCommandHandler(CommandHandler):
         self.__task_repository = task_repository
         self.__user_repository = user_repository
 
-    def handle(self, command: UpdateTaskCommand):
+    def handle(self, command: UpdateTaskCommand) -> None:
         requester_user = self.__user_repository.filter_user_by_id(user_id=command.requester_user_id)
         if requester_user is None:
             raise UserNotFoundException(user_id=command.requester_user_id)
@@ -37,8 +37,5 @@ class UpdateTaskCommandHandler(CommandHandler):
         if command.completed == True and task_filtered.completed == False:
             task_filtered.completed_at = datetime.now()
             task_filtered.completed= command.completed
-
-
-
 
         self.__task_repository.save_task(task_filtered)

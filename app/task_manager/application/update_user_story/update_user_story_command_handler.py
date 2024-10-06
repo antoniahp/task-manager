@@ -7,9 +7,8 @@ from task_manager.domain.user.user_repository import UserRepository
 from task_manager.domain.user_story.user_story_repository import UserStoryRepository
 
 
-
 class UpdateUserStoryCommandHandler(CommandHandler):
-    def __init__(self, user_story_repository:UserStoryRepository, user_repository:UserRepository):
+    def __init__(self, user_story_repository: UserStoryRepository, user_repository: UserRepository):
         self.__user_story_repository = user_story_repository
         self.__user_repository = user_repository
 
@@ -28,8 +27,8 @@ class UpdateUserStoryCommandHandler(CommandHandler):
         user_story_filtered.description = command.description
         user_story_filtered.estimation = command.estimation
         user_story_filtered.completed = command.completed
-        user_story_filtered.project_id= command.project_id
-        user_story_filtered.assigned_user_id= command.assigned_user_id
-        user_story_filtered.status_column_id= command.status_column_id
+        user_story_filtered.project_id = command.project_id
+        user_story_filtered.assigned_user_id = command.assigned_user_id
+        user_story_filtered.status_column_id = command.status_column_id
 
         self.__user_story_repository.save_user_story(user_story_filtered)

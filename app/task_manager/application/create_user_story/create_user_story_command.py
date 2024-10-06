@@ -16,6 +16,6 @@ class CreateUserStoryCommand(Command):
     estimation: int
     completed: bool
     completed_at: datetime
-    project_id: Optional[UUID] = None
-    assigned_user_id: Optional[UUID] = None
-    status_column_id: Optional[UUID] = None
+    project_id: UUID
+    assigned_user_id: UUID
+    status_column_id: UUID

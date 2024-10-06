@@ -13,7 +13,7 @@ class CreateUserStoryCommandHandler(CommandHandler):
         self.__user_story_repository = user_story_repository
         self.__user_repository = user_repository
 
-    def handle(self, command: CreateUserStoryCommand):
+    def handle(self, command: CreateUserStoryCommand) -> None:
         requester_user = self.__user_repository.filter_user_by_id(user_id=command.requester_user_id)
         if requester_user is None:
             raise UserNotFoundException(user_id=command.requester_user_id)

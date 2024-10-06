@@ -20,5 +20,13 @@ class GetSprintQueryHandler(QueryHandler):
         if not requester_user.belongs_to_company(company_id=query.company_id):
             raise UserDoesNotBelongToCompanyException(requester_user_id=query.requester_user_id, company_id=query.company_id)
 
-        sprints = self.__sprint_repository.filter_sprint(sprint_id=query.sprint_id, name=query.name, start_date=query.start_date, end_date=query.end_date, objective=query.objective, active=query.active, company_id=query.company_id)
+        sprints = self.__sprint_repository.filter_sprint(
+            sprint_id=query.sprint_id,
+            name=query.name,
+            start_date=query.start_date,
+            end_date=query.end_date,
+            objective=query.objective,
+            active=query.active,
+            company_id=query.company_id
+        )
         return QueryResponse(content=sprints)

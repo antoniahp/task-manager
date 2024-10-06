@@ -8,12 +8,12 @@ from task_manager.domain.user.user_repository import UserRepository
 
 
 class CreateSprintCommandHandler(CommandHandler):
-    def __init__(self, sprint_creator: SprintCreator, sprint_repository: SprintRepository, user_repository: UserRepository ):
+    def __init__(self, sprint_creator: SprintCreator, sprint_repository: SprintRepository, user_repository: UserRepository):
         self.__sprint_creator = sprint_creator
         self.__sprint_repository= sprint_repository
         self.__user_repository = user_repository
 
-    def handle(self, command: CreateSprintCommand):
+    def handle(self, command: CreateSprintCommand) -> None:
         requester_user = self.__user_repository.filter_user_by_id(user_id=command.requester_user_id)
         if requester_user is None:
             raise UserNotFoundException(user_id=command.requester_user_id)

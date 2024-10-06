@@ -20,5 +20,19 @@ class GetTaskQueryHandler(QueryHandler):
         if not requester_user.belongs_to_company(company_id=query.company_id):
             raise UserDoesNotBelongToCompanyException(requester_user_id=query.requester_user_id, company_id=query.company_id)
 
-        tasks = self.__task_repository.filter_task(task_id=query.task_id, title=query.title, estimation=query.estimation, completed=query.completed, sprint_id=query.sprint, assigned_user_id=query.assigned_user_id, status_column_id=query.status_column_id, user_story_id=query.user_story_id, completed_at=query.completed_at, completed_at__lte=query.completed_at__lte, completed_at__gte=query.completed_at__gte, deleted=query.deleted, company_id=query.company_id)
+        tasks = self.__task_repository.filter_task(
+            task_id=query.task_id,
+            title=query.title,
+            estimation=query.estimation,
+            completed=query.completed,
+            sprint_id=query.sprint,
+            assigned_user_id=query.assigned_user_id,
+            status_column_id=query.status_column_id,
+            user_story_id=query.user_story_id,
+            completed_at=query.completed_at,
+            completed_at__lte=query.completed_at__lte,
+            completed_at__gte=query.completed_at__gte,
+            deleted=query.deleted,
+            company_id=query.company_id
+        )
         return QueryResponse(content=tasks)

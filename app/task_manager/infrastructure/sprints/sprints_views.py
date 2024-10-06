@@ -148,7 +148,7 @@ def get_sprint_detail(request, company_id: UUID, sprint_id: UUID):
         return 500, {"error": str(exception)}
 
 
-@sprint_router.put("/{sprint_id}", response={200: None, 403: ErrorMessageSchema, 404: ErrorMessageSchema , 500: ErrorMessageSchema}, auth=JWTAuth())
+@sprint_router.put("/{sprint_id}", response={200: None, 403: ErrorMessageSchema, 404: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
 def update_sprint(request, company_id: UUID, sprint_id: UUID, update_schema: UpdateSprintSchema):
     command = UpdateSprintCommand(
         sprint_id=sprint_id,

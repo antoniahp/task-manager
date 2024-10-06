@@ -13,8 +13,7 @@ class CreateProjectCommandHandler(CommandHandler):
         self.__project_repository = project_repository
         self.__user_repository = user_repository
 
-
-    def handle(self, command: CreateProjectCommand):
+    def handle(self, command: CreateProjectCommand) -> None:
         requester_user = self.__user_repository.filter_user_by_id(user_id=command.requester_user_id)
         if requester_user is None:
             raise UserNotFoundException(user_id=command.requester_user_id)
