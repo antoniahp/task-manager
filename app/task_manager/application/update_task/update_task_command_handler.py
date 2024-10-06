@@ -2,15 +2,26 @@ from datetime import datetime
 
 from cqrs.commands.command_handler import CommandHandler
 from task_manager.application.update_task.update_task_command import UpdateTaskCommand
+from task_manager.domain.exceptions.user_does_not_belong_to_company_exception import UserDoesNotBelongToCompanyException
+from task_manager.domain.exceptions.user_not_found_exception import UserNotFoundException
 from task_manager.domain.task.task_repository import TaskRepository
 from task_manager.domain.exceptions.task_not_found_exception import TaskNotFoundException
+from task_manager.domain.user.user_repository import UserRepository
 
 
 class UpdateTaskCommandHandler(CommandHandler):
-    def __init__(self, task_repository:TaskRepository):
+    def __init__(self, task_repository:TaskRepository, user_repository: UserRepository):
         self.__task_repository = task_repository
+        self.__user_repository = user_repository
 
     def handle(self, command: UpdateTaskCommand):
+        requester_user = self.__user_repository.filter_user_by_id(user_id=command.requester_user_id)
+        if requester_user is None:
+            raise UserNotFoundException(user_id=command.requester_user_id)
+
+        if not requester_user.belongs_to_company(company_id=command.company_id):
+            raise UserDoesNotBelongToCompanyException(requester_user_id=command.requester_user_id, company_id=command.company_id)
+
         task_filtered = self.__task_repository.filter_task_by_id(task_id=command.task_id)
         if task_filtered is None:
             raise TaskNotFoundException(task_id=command.task_id)

@@ -13,6 +13,7 @@ class TaskRepository(ABC):
         pass
     @abstractmethod
     def filter_task(self,  task_id: Optional[UUID] = None,
+                    company_id: Optional[UUID] = None,
                     title:Optional[str] = None,
                     estimation: Optional[int] = None,
                     completed: Optional[bool] = None,
