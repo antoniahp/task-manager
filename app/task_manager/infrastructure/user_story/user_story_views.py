@@ -25,7 +25,7 @@ create_user_story_command_handler = CreateUserStoryCommandHandler(user_story_cre
 get_user_story_query_handler = GetUserStoryQueryHandler(user_story_repository=user_story_repository)
 update_user_story_command_handler = UpdateUserStoryCommandHandler(user_story_repository=user_story_repository)
 @user_story_router.post("/", response=IdentifierSchema)
-def post_user_story(request, create_user_story_schema: CreateUserStorySchema):
+def create_user_story(request, create_user_story_schema: CreateUserStorySchema):
     id = uuid4()
     command = CreateUserStoryCommand(
         user_story_id=id,
@@ -45,7 +45,7 @@ def post_user_story(request, create_user_story_schema: CreateUserStorySchema):
 
 
 @user_story_router.get("/", response=List[GetUserStorySchema])
-def get_user_story(request, title: Optional[str] = None, description: Optional[str] = None, estimation: Optional[int] = None,
+def get_user_stories(request, title: Optional[str] = None, description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None, project_id: Optional[UUID] = None, assigned_user_id: Optional[UUID] = None, status_column_id: Optional[UUID] = None):
     query = GetUserStoryQuery(
         title=title,

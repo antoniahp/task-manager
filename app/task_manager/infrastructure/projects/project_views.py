@@ -30,7 +30,7 @@ get_project_query_handler = GetProjectQueryHandler(project_repository=project_re
 get_project_detail_query_handler = GetProjectDetailQueryHandler(project_repository=project_repository, task_repository=task_repository, project_detail_creator=project_detail_creator)
 
 @project_router.post("/", response=IdentifierSchema)
-def post_project(request, create_project_schema: CreateProjectSchema):
+def create_project(request, create_project_schema: CreateProjectSchema):
     id = uuid4()
     command = CreateProjectCommand(
         project_id=id,
@@ -67,7 +67,7 @@ def get_project_by_id(request, project_id: UUID):
 
 
 @project_router.get("/{project_id}/detail", response=GetProjectDetailSchema)
-def get_project_detail_router(request, project_id: UUID):
+def get_project_detail(request, project_id: UUID):
     query = GetProjectDetailQuery(
         project_id=project_id
     )

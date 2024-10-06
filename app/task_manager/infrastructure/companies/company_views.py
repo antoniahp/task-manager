@@ -21,7 +21,7 @@ get_company_query_handler = GetCompanyQueryHandler(company_repository=db_company
 create_company_command_handler = CreateCompanyCommandHandler(company_repository=db_company_repository, company_creator=company_creator)
 
 @company_router.post("/", response=IdentifierSchema)
-def post_company(request, create_company_schema: CreateCompanySchema):
+def create_company(request, create_company_schema: CreateCompanySchema):
     id = uuid4()
     command = CreateCompanyCommand(
         company_id=id,
@@ -44,7 +44,7 @@ def get_companies(request, company_id: Optional[UUID] = None, name: Optional[str
 
 
 @company_router.get("/{company_id}", response=GetCompanySchema)
-def get_sprints_by_id(request, company_id: UUID ):
+def get_company_by_id(request, company_id: UUID ):
     query = GetCompanyQuery(
         company_id=company_id
     )

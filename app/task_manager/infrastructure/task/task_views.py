@@ -27,7 +27,7 @@ update_task_command_handler = UpdateTaskCommandHandler(task_repository=task_repo
 
 
 @task_router.post("/", response=IdentifierSchema, auth=JWTAuth())
-def post_task(request, create_task_schema: CreateTaskSchema):
+def create_task(request, create_task_schema: CreateTaskSchema):
     id = uuid4()
     command = CreateTaskCommand(
         task_id=id,
@@ -49,7 +49,7 @@ def post_task(request, create_task_schema: CreateTaskSchema):
 
 
 @task_router.get("/", response=List[GetTaskSchema])
-def get_task(request, title: Optional[str] = None,
+def get_tasks(request, title: Optional[str] = None,
              description: Optional[str] = None, estimation: Optional[int] = None,
              completed: Optional[bool] = None,
              user_story_id: Optional[UUID] = None, sprint: Optional[UUID] = None,

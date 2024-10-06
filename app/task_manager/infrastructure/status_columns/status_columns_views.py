@@ -20,7 +20,20 @@ status_column_creator = StatusColumnCreator()
 get_status_column_query_handler = GetStatusColumnQueryHandler(status_column_repository=status_column_repository)
 create_status_column_command_handler = CreateStatusColumnCommandHandler(status_column_repository=status_column_repository, status_column_creator=status_column_creator)
 
-@status_columns_router.get("/status_columns", response=List[GetStatusColumnsSchema])
+
+@status_columns_router.post("/", response=IdentifierSchema)
+def create_status_column(request, create_status_columns_schema: CreateStatusColumnSchema):
+    id = uuid4()
+    command = CreateStatusColumnCommand(
+        status_column_id=id,
+        name=create_status_columns_schema.name,
+        company_id=create_status_columns_schema.company_id,
+        order=create_status_columns_schema.order
+    )
+    create_status_column_command_handler.handle(command)
+    return IdentifierSchema(id=id)
+
+@status_columns_router.get("/", response=List[GetStatusColumnsSchema])
 def get_status_columns(request, name: Optional[str] = None, company_id: Optional[UUID] = None):
     query = GetStatusColumnQuery(
         name=name,
@@ -32,22 +45,8 @@ def get_status_columns(request, name: Optional[str] = None, company_id: Optional
     return status_columns
 
 
-
-@status_columns_router.post("/", response=IdentifierSchema)
-def post_status_columns(request, create_status_columns_schema: CreateStatusColumnSchema):
-    id = uuid4()
-    command = CreateStatusColumnCommand(
-        status_column_id=id,
-        name=create_status_columns_schema.name,
-        company_id=create_status_columns_schema.company_id,
-        order=create_status_columns_schema.order
-    )
-    create_status_column_command_handler.handle(command)
-    return IdentifierSchema(id=id)
-
-
 @status_columns_router.get("/{status_column_id}", response=GetStatusColumnsSchema)
-def get_status_columns_by_id(request, status_column_id: UUID):
+def get_status_column_by_id(request, status_column_id: UUID):
     query = GetStatusColumnQuery(
         status_column_id=status_column_id,
     )

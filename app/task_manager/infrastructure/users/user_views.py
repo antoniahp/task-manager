@@ -21,7 +21,7 @@ user_repository = DbUserRepository()
 create_user_command_handler = CreateUserCommandHandler(user_creator=user_creator, user_repository=user_repository)
 get_user_query_handler = GetUserQueryHandler(user_repository=user_repository)
 @user_router.post("/", response=IdentifierSchema)
-def post_user(request, create_user_schema: CreateUserSchema):
+def create_user(request, create_user_schema: CreateUserSchema):
     id = uuid4()
     command = CreateUserCommand(
         user_id=id,
