@@ -16,7 +16,7 @@ class DbProjectRepository(ProjectRepository):
         project = Project.objects.filter(id=project_id).first()
         return project
 
-    def filtered_projects(self, project_id: Optional[UUID], name: Optional[str] = None, start_date__gte:Optional[date]= None, end_date__lte:Optional[date]= None) -> List[Project]:
+    def filtered_projects(self, project_id: Optional[UUID], company_id: Optional[UUID] = None, name: Optional[str] = None, start_date__gte:Optional[date]= None, end_date__lte:Optional[date]= None) -> List[Project]:
         filters = Q()
         if project_id is not None:
             filters = filters & Q(id=project_id)
@@ -26,6 +26,8 @@ class DbProjectRepository(ProjectRepository):
             filters = filters & Q(start_date__gte=start_date__gte)
         if end_date__lte is not None:
             filters = filters & Q(end_date__lte=end_date__lte)
+        if company_id is not None:
+            filters = filters & Q(project__company_id=company_id)
 
         projects = Project.objects.filter(filters)
         return projects

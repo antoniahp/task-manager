@@ -8,6 +8,8 @@ from cqrs.queries.query import Query
 
 @dataclass(frozen=True)
 class GetProjectQuery(Query):
+    company_id: UUID
+    requester_user_id: UUID
     project_id: Optional[UUID] = None
     name: Optional[str] = None
     start_date__gte: Optional[date] = None
