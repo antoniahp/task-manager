@@ -12,7 +12,7 @@ class ProjectRepository(ABC):
     def filtered_project_by_id(self, project_id: UUID) -> Optional[Project]:
         pass
     @abstractmethod
-    def filtered_projects(self, project_id: Optional[UUID], name: Optional[str] = None, start_date__gte:Optional[date]= None, end_date__lte:Optional[date]= None) -> List[Project]:
+    def filtered_projects(self, project_id: Optional[UUID], company_id: Optional[UUID] = None, name: Optional[str] = None, start_date__gte:Optional[date]= None, end_date__lte:Optional[date]= None) -> List[Project]:
         pass
 
     @abstractmethod
