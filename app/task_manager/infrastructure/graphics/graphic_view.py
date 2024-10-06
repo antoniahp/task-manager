@@ -8,11 +8,13 @@ from task_manager.application.get_task.get_task_query_handler import GetTaskQuer
 from task_manager.infrastructure.graphics.date_value_graphic_schema import DateValueGraphicSchema
 from task_manager.infrastructure.graphics.task_to_date_value_graph_schema_adaptor import TasksToDateValueGraphSchemaAdapter
 from task_manager.infrastructure.task.db_task_repository import DbTaskRepository
+from task_manager.infrastructure.users.db_user_repository import DbUserRepository
 
 graphics_router = Router(tags=["graphics"])
 
 task_repository = DbTaskRepository()
-get_task_query_handler = GetTaskQueryHandler(task_repository=task_repository)
+user_repository = DbUserRepository()
+get_task_query_handler = GetTaskQueryHandler(task_repository=task_repository, user_repository=user_repository)
 task_to_date_value_graph_schema_adaptor = TasksToDateValueGraphSchemaAdapter()
 
 

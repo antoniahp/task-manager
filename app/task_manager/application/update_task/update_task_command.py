@@ -8,6 +8,8 @@ from cqrs.commands.command import Command
 
 @dataclass(frozen=True)
 class UpdateTaskCommand(Command):
+    company_id: UUID
+    requester_user_id: UUID
     task_id: UUID
     title:str
     description:str

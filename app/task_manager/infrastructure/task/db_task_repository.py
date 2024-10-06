@@ -14,6 +14,7 @@ class DbTaskRepository(TaskRepository):
         return task
 
     def filter_task(self,  task_id: Optional[UUID] = None,
+                    company_id: Optional[UUID] = None,
                     title:Optional[str] = None,
                     estimation: Optional[int] = None,
                     completed: Optional[bool] = None,
@@ -29,6 +30,8 @@ class DbTaskRepository(TaskRepository):
         filters = Q()
         if task_id is not None:
             filters = filters & Q(id=task_id)
+        if company_id is not None:
+            filters = filters & Q(user_story__project__company_id=company_id)
         if title is not None:
             filters = filters & Q(title=title)
         if estimation is not None:
