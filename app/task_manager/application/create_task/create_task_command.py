@@ -17,7 +17,6 @@ class CreateTaskCommand(Command):
     estimation: int
     completed: bool
     deleted: bool
-    completed_at: datetime
     user_story_id: UUID
     sprint_id: UUID
     assigned_user_id: UUID
