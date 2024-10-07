@@ -41,6 +41,7 @@ def get_companies_by_user(request, name: Optional[str] = None):
     query = GetCompanyQuery(
         name=name,
         requester_user_id=request.user.id,
+
     )
     try:
         query_response = get_company_query_handler.handle(query)
