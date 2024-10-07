@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from django.db.models import Q
@@ -14,7 +14,7 @@ class DbCompanyRepository(CompanyRepository):
         return company
 
 
-    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> Optional[Company]:
+    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> List[Company]:
         filters = Q()
         if company_id is not None:
             filters = filters & Q(id=company_id)

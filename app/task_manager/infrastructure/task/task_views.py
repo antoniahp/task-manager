@@ -98,8 +98,10 @@ def get_task_by_id(request, company_id: UUID, task_id: UUID):
     )
     try:
         query_response = get_task_query_handler.handle(query)
-        task = query_response.content
-        return task[0]
+        tasks = query_response.content
+        if len(tasks) == 0:
+            return 404, {"error": "Task not found"}
+        return 200, tasks[0]
     except UserDoesNotBelongToCompanyException as exception:
         return 403, {"error": str(exception)}
     except Exception as exception:

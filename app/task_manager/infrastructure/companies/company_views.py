@@ -61,8 +61,10 @@ def get_company_by_id(request, company_id: UUID):
     )
     try:
         query_response = get_company_query_handler.handle(query)
-        company = query_response.content[0]
-        return company
+        companies = query_response.content
+        if len(companies) == 0:
+            return 404, {"error": "Company not found"}
+        return 200, companies[0]
     except UserDoesNotBelongToCompanyException as exception:
         return 403, {"error": str(exception)}
     except CompanyNotFoundException as exception:
