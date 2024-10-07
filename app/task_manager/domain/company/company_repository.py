@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from task_manager.domain.company.company import Company
@@ -11,7 +11,7 @@ class CompanyRepository(ABC):
         pass
 
     @abstractmethod
-    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> Optional[Company]:
+    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> List[Company]:
         pass
 
     @abstractmethod
