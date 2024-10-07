@@ -7,11 +7,11 @@ from task_manager.domain.company.company import Company
 
 class CompanyRepository(ABC):
     @abstractmethod
-    def filter_company_by_id(self, company_id = UUID) -> Optional[Company]:
+    def filter_company_by_id(self, company_id: UUID) -> Optional[Company]:
         pass
 
     @abstractmethod
-    def filter_company(self, company_id = Optional[UUID], name = Optional[str]) -> Optional[Company]:
+    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> Optional[Company]:
         pass
 
     @abstractmethod

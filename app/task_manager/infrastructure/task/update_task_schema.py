@@ -1,3 +1,4 @@
+from pydantic import Field
 from typing import Optional
 from uuid import UUID
 
@@ -9,7 +10,7 @@ class UpdateTaskSchema(Schema):
     description: str
     estimation: int
     completed: bool
-    deleted: bool
+    deleted: bool = Field(default=False)
     user_story_id: UUID
     sprint_id: Optional[UUID]
     assigned_user_id: Optional[UUID]

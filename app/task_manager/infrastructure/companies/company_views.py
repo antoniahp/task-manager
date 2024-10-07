@@ -9,6 +9,7 @@ from task_manager.application.create_company.create_company_command_handler impo
 from task_manager.application.get_company.get_company_query import GetCompanyQuery
 from task_manager.application.get_company.get_company_query_handler import GetCompanyQueryHandler
 from task_manager.domain.company.company_creator import CompanyCreator
+from task_manager.domain.exceptions.company_not_found_exception import CompanyNotFoundException
 from task_manager.domain.exceptions.user_does_not_belong_to_company_exception import UserDoesNotBelongToCompanyException
 from task_manager.infrastructure.companies.create_company_schema import CreateCompanySchema
 from task_manager.infrastructure.companies.db_company_repository import DbCompanyRepository
@@ -36,7 +37,7 @@ def create_company(request, create_company_schema: CreateCompanySchema):
     return IdentifierSchema(id=id)
 
 @company_router.get("/", response={200: List[GetCompanySchema], 403: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
-def get_companies(request, name: Optional[str] = None):
+def get_companies_by_user(request, name: Optional[str] = None):
     query = GetCompanyQuery(
         name=name,
         requester_user_id=request.user.id,
@@ -52,7 +53,7 @@ def get_companies(request, name: Optional[str] = None):
         return 500, {"error": str(exception)}
 
 
-@company_router.get("/{company_id}", response={200: GetCompanySchema, 403: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
+@company_router.get("/{company_id}", response={200: GetCompanySchema, 403: ErrorMessageSchema, 404: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
 def get_company_by_id(request, company_id: UUID):
     query = GetCompanyQuery(
         company_id=company_id,
@@ -60,10 +61,12 @@ def get_company_by_id(request, company_id: UUID):
     )
     try:
         query_response = get_company_query_handler.handle(query)
-        company = query_response.content
+        company = query_response.content[0]
         return company
     except UserDoesNotBelongToCompanyException as exception:
         return 403, {"error": str(exception)}
+    except CompanyNotFoundException as exception:
+        return 404, {"error": str(exception)}
     except Exception as exception:
         return 500, {"error": str(exception)}
 

@@ -9,4 +9,4 @@ from cqrs.queries.query import Query
 class GetUserQuery(Query):
     user_id: Optional[UUID] = None
     name: Optional[str] = None
-    company: Optional[UUID] = None
+    company_id: Optional[UUID] = None

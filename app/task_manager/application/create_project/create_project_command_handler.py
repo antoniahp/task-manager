@@ -26,6 +26,7 @@ class CreateProjectCommandHandler(CommandHandler):
             name=command.name,
             start_date=command.start_date,
             end_date=command.end_date,
+            company_id=command.company_id
 
         )
         self.__project_repository.save_project(project)

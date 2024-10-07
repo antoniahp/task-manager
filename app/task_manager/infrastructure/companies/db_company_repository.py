@@ -9,15 +9,17 @@ from task_manager.domain.company.company_repository import CompanyRepository
 
 class DbCompanyRepository(CompanyRepository):
 
-    def filter_company_by_id(self, company_id = UUID) -> Optional[Company]:
-        company = Company.objects.filter(company_id = company_id).first()
+    def filter_company_by_id(self, company_id: UUID) -> Optional[Company]:
+        company = Company.objects.filter(id=company_id).first()
         return company
 
 
-    def filter_company(self, company_id = Optional[UUID], name = Optional[str]) -> Optional[Company]:
+    def filter_company(self, company_id: Optional[UUID]=None, name: Optional[str]=None , requester_user_id: Optional[UUID]=None) -> Optional[Company]:
         filters = Q()
         if company_id is not None:
             filters = filters & Q(id=company_id)
+        if requester_user_id is not None:
+            filters = filters & Q(users=requester_user_id)
         if name is not None:
             filters = filters & Q(name=name)
         companies = Company.objects.filter(filters)

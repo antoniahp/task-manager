@@ -27,6 +27,7 @@ class CreateSprintCommandHandler(CommandHandler):
             objective=command.objective,
             start_date=command.start_date,
             end_date=command.end_date,
-            active=command.active
+            active=command.active,
+            company_id=command.company_id
         )
         self.__sprint_repository.save_sprint(sprint)

@@ -34,12 +34,12 @@ create_status_column_command_handler = CreateStatusColumnCommandHandler(
 
 
 @status_columns_router.post("/", response={200: IdentifierSchema, 403: ErrorMessageSchema, 500: ErrorMessageSchema}, auth=JWTAuth())
-def create_status_column(request, create_status_columns_schema: CreateStatusColumnSchema):
+def create_status_column(request, company_id: UUID, create_status_columns_schema: CreateStatusColumnSchema):
     id = uuid4()
     command = CreateStatusColumnCommand(
         status_column_id=id,
         name=create_status_columns_schema.name,
-        company_id=create_status_columns_schema.company_id,
+        company_id=company_id,
         order=create_status_columns_schema.order,
         requester_user_id=request.user.id,
     )

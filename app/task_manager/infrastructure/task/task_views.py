@@ -45,7 +45,6 @@ def create_task(request, company_id: UUID, create_task_schema: CreateTaskSchema)
         sprint_id=create_task_schema.sprint_id,
         assigned_user_id=create_task_schema.assigned_user_id,
         status_column_id=create_task_schema.status_column_id,
-        completed_at=create_task_schema.completed_at,
         deleted=False,
         company_id=company_id,
         requester_user_id=request.user.id,
