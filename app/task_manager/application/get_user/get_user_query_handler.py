@@ -12,6 +12,6 @@ class GetUserQueryHandler(QueryHandler):
         users = self.__user_repository.filter_users(
             user_id=query.user_id,
             name=query.name,
-            company=query.company_id
+            company_id=query.company_id
         )
         return QueryResponse(content=users)

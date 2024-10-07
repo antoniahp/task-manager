@@ -39,7 +39,7 @@ def create_user(request, create_user_schema: CreateUserSchema):
     return IdentifierSchema(id=id)
 
 
-@user_router.get("/logged-user", response=GetUserSchema,  auth=JWTAuth())
+@user_router.get("/logged-user", response=List[GetUserSchema],  auth=JWTAuth())
 def get_logged_user(request):
     query = GetUserQuery(
         user_id=request.user.id
