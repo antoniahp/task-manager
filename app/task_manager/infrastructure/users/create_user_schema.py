@@ -5,7 +5,7 @@ from ninja import Schema
 
 class CreateUserSchema(Schema):
     name: str
-    company: UUID
+    company_id: UUID
     password: str
     username: str
     email: str

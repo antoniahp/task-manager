@@ -2,6 +2,7 @@ from abc import abstractmethod, ABC
 from typing import Optional
 from uuid import UUID
 
+from task_manager.domain.company.company import Company
 from task_manager.domain.user.user import User
 
 
@@ -11,9 +12,9 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def filter_users(self, user_id: Optional[UUID], name: Optional[str], company:Optional[UUID]) -> Optional[User]:
+    def filter_users(self, user_id: Optional[UUID], name: Optional[str], company_id:Optional[UUID]) -> Optional[User]:
         pass
 
     @abstractmethod
-    def save_user(self, user: User) -> None:
+    def save_user(self, user: User, company: Optional[Company] = None) -> None:
         pass

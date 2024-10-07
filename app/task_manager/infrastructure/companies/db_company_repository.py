@@ -10,7 +10,7 @@ from task_manager.domain.company.company_repository import CompanyRepository
 class DbCompanyRepository(CompanyRepository):
 
     def filter_company_by_id(self, company_id = UUID) -> Optional[Company]:
-        company = Company.objects.filter(company_id = company_id).first()
+        company = Company.objects.filter(id=company_id).first()
         return company
 
 
